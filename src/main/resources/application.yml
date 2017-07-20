@@ -1,0 +1,15 @@
+server:
+  port: 8888
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/SummerCamp?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: 111111
+mybatis:
+  config-location: classpath:mybatis-config.xml
