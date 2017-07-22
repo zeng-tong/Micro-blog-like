@@ -1,17 +1,15 @@
 package com.zengtong.Controller;
 
-import com.sun.net.httpserver.HttpServer;
 import com.zengtong.DAO.TestDao;
-import com.zengtong.DAO.UserDao;
-import com.zengtong.Service.UserSercvice;
+import com.zengtong.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 
 
@@ -27,11 +25,13 @@ public class homeController {
      * thymleaf
      * */
     @GetMapping(value = "/")
-    public String home(Model model,
-                       HttpSession session){
-        model.addAttribute("name","ZengTong");
-        model.addAttribute("msg", session.getAttribute("msg"));
-        return "home.html";
+    public String home(HttpSession session){
+    /*    model.addAttribute("name","ZengTong");
+        model.addAttribute("user",new User("小哥",10,"pswd"));*/
+    session.setAttribute("user",new User("Zengtong",20,"Hello"));
+
+    return "home";
+
     }
 
     @Autowired
@@ -104,18 +104,6 @@ public class homeController {
         return "error: " + e.getMessage();
     }
 
-
-    @Autowired
-    private UserSercvice userSercvice;
-
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    @ResponseBody
-    public String register(@RequestParam("Username")String username,
-                           @RequestParam("Age")Integer age,
-                           @RequestParam("Password")String password){
-        userSercvice.update(username,age,password);
-        return "Update success . ";
-    }
 
 
 
