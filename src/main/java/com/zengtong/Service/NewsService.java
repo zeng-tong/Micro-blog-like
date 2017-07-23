@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
@@ -38,7 +37,7 @@ public class NewsService {
     }
 
 
-    public String getImage(String filename, HttpServletResponse response){
+   /* public String getImage(String filename, HttpServletResponse response){
 
-    }
+    }*/
 }
