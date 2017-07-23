@@ -32,7 +32,7 @@ public class NewsController {
 
             if(url == null){
 
-                map.put(file.getOriginalFilename() + "上传失败","error");
+                map.put(file.getOriginalFilename() + "上传失败","error"); //
 
             }
             map.put(url,"success");
