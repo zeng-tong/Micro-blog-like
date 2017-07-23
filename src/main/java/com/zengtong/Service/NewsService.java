@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -37,7 +40,23 @@ public class NewsService {
     }
 
 
-   /* public String getImage(String filename, HttpServletResponse response){
+    public String getImage(String filename, HttpServletResponse response) throws IOException {
 
-    }*/
+        int index = filename.lastIndexOf('.');
+
+        String suffix = filename.substring(index + 1);
+
+        response.setContentType("image/" + suffix);
+
+        try{
+
+            StreamUtils.copy(new FileInputStream(Tool.IMAGE_DIR + filename),response.getOutputStream());
+
+            return filename;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

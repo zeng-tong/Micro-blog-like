@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,8 +41,27 @@ public class NewsController {
     @RequestMapping(value = "/image",method = RequestMethod.GET)
     @ResponseBody
     public String getImage(@RequestParam("name")String name,
-                           HttpServletResponse response){
+                           HttpServletResponse response) throws IOException {
+        Map<String ,Object> map = new HashMap<>();
 
+        try {
+
+            String statu = newsService.getImage(name,response);
+
+            if(statu == null){
+                map.put("error","图片下载失败");
+                return Tool.getJSONString(1,map);
+            }
+
+            map.put("success","下载成功");
+
+            return Tool.getJSONString(0,map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            map.put("error",e.getMessage());
+            return Tool.getJSONString(1,map);
+        }
     }
 
 
