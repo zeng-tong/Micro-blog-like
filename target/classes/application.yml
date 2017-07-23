@@ -1,5 +1,6 @@
 server:
   port: 8888
+
 spring:
   thymeleaf:
     mode: HTML5
@@ -13,5 +14,9 @@ spring:
     password: 111111
   messages:
     basename: templates/home
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
 mybatis:
   config-location: classpath:mybatis-config.xml
