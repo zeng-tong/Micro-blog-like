@@ -55,7 +55,7 @@ public class NewsController {
 
             map.put("success","下载成功");
 
-            return Tool.getJSONString(0,map);
+            return Tool.getJSONString(0,map); //
         }
         catch (Exception e){
             e.printStackTrace();
@@ -63,6 +63,5 @@ public class NewsController {
             return Tool.getJSONString(1,map);
         }
     }
-
 
 }
