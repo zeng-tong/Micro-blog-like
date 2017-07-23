@@ -23,17 +23,21 @@ public class NewsController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String upImage(@RequestParam("file") MultipartFile file){
+    public String upImage(@RequestParam("file") MultipartFile[] files){
         Map<String,Object> map = new HashMap<>();
 
-        String url = newsService.uploadImage(file);
+        for(MultipartFile file:files){
 
-        if(url == null){
-            map.put("error","上传失败");
-            return Tool.getJSONString(1,map);
+            String url = newsService.uploadImage(file);
+
+            if(url == null){
+
+                map.put(file.getOriginalFilename() + "上传失败","error");
+
+            }
+            map.put(url,"success");
         }
 
-        map.put("success",url);
         return Tool.getJSONString(0,map);
 
     }
