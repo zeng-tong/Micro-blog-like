@@ -11,5 +11,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/SummerCamp?useUnicode=true&characterEncoding=UTF8&useSSL=false
     username: root
     password: 111111
+  messages:
+    basename: templates/home
 mybatis:
   config-location: classpath:mybatis-config.xml

@@ -1,49 +1,67 @@
 package com.zengtong.model;
 
-import org.springframework.stereotype.Service;
-
 /**
  * Created by znt on 17-7-18.
  */
 
 
 public class User {
-    public User(String username, Integer age, String password) {
-        Username = username;
-        Age = age;
-        Password = password;
+    public User(String name, String password, String salt, String head_url) {
+        this.name = name;
+        this.password = password;
+        this.salt = salt;
+        this.head_url = head_url;
     }
 
-    public User() {
+    public User(){}
+
+    private int id;
+
+    private String name;
+
+    private String password;
+
+    private String salt;
+
+    private String head_url;
+
+    public String getName() {
+        return name;
     }
 
-    private String Username;
-
-    private Integer Age;
-
-    private String Password;
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public Integer getAge() {
-        return Age;
-    }
-
-    public void setAge(Integer age) {
-        Age = age;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getHead_url() {
+        return head_url;
+    }
+
+    public void setHead_url(String head_url) {
+        this.head_url = head_url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

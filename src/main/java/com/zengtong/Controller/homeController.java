@@ -1,16 +1,12 @@
 package com.zengtong.Controller;
 
-import com.zengtong.DAO.TestDao;
+import com.zengtong.model.HostHolder;
 import com.zengtong.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 
 
 /**
@@ -19,7 +15,8 @@ import java.util.Enumeration;
 @Controller
 public class homeController {
 
-
+    @Autowired
+    private HostHolder hostHolder;
 
     /**
      * thymleaf
@@ -28,51 +25,20 @@ public class homeController {
     public String home(HttpSession session){
     /*    model.addAttribute("name","ZengTong");
         model.addAttribute("user",new User("小哥",10,"pswd"));*/
-    session.setAttribute("user",new User("Zengtong",20,"Hello"));
 
-    return "home";
-
-    }
-
-    @Autowired
-    private TestDao testDao;
-
-    @GetMapping(value = "/dao")
-    @ResponseBody
-    public String dao(){
-        return testDao.say();
-    }
-
-    @GetMapping(value = "/request")
-    @ResponseBody
-    public String setting(HttpServletRequest request) {
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        Enumeration enumeration = request.getHeaderNames();
-
-        while(enumeration.hasMoreElements()){
-            String headName = enumeration.nextElement().toString();
-            stringBuilder.append(headName +" : "+ request.getHeader(headName) + "<br>");
+        User user = new User();
+        if(hostHolder.getUser() != null){
+            user = hostHolder.getUser();
+        }else{
+            user.setName("NULL");
         }
 
-        for(Cookie cookie : request.getCookies()){
-            stringBuilder.append("Cookie: "+ cookie.getName() +":" + cookie.getValue() + "<br>");
-        }
+        session.setAttribute("user",user);
 
-        return stringBuilder.toString();
+        return "home";
 
     }
 
-    @GetMapping(value = "/response")
-    @ResponseBody
-    public String response(@CookieValue(value = "myID",defaultValue = "12")String myID,
-                           @RequestParam(value = "key")String key,
-                           @RequestParam(value = "value")String value,
-                           HttpServletResponse response){
-        response.addCookie(new Cookie(key,value));
-        return "my Cookie :" + myID + "<br>";
-    }
 
     @RequestMapping(value = "/redirect/{code}")
     public String redirect(@PathVariable("code") int code,
@@ -89,14 +55,6 @@ public class homeController {
         return "redirect:/";
 
     }
-
-    @RequestMapping(value = "/admin/{code}")
-    @ResponseBody
-    public String admin(@PathVariable("code") int code) throws Exception {
-        if(code == 1) return "hello";
-        throw new  Exception("No privilege");
-    }
-
 
     @ExceptionHandler
     @ResponseBody

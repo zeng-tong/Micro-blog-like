@@ -2,13 +2,13 @@ package com.zengtong.Utils;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.zengtong.model.User;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -38,7 +38,7 @@ public static void StringUtil(){
         print(5,StringUtils.getDigits("hello123"));
         print(6,StringUtils.leftPad("my",7,"#"));
 //        print(7,StringUtils.split("what`s your name ?",' '));
-        print(6, ToStringBuilder.reflectionToString(new User("zengtong",21,"hahha"), ToStringStyle.JSON_STYLE));
+//        print(6, ToStringBuilder.reflectionToString(new User("zengtong",21,"hahha"), ToStringStyle.JSON_STYLE));
     }
 
     public static void DatetimeUtil() throws ParseException {
