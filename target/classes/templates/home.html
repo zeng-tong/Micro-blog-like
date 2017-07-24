@@ -28,7 +28,7 @@
          th:src="@{/images/gtvglogo.png}" th:alt-title="#{logo}" />
 </div>
 
-<p th:utext="#{home.welcome(${session.user.name})}">Welcome to our grocery store, Sebastian!</p>
+<p th:utext="#{home.welcome(${session.info})}">Welcome to our grocery store, Sebastian!</p>
 
 <!--<p>
     Today is: <span th:with="df=#{date.format}" th:text="${#calendars.format(today,df)}">13 February 2011</span>

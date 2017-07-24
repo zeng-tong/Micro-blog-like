@@ -1,13 +1,18 @@
 package com.zengtong.Service;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.zengtong.DAO.UserDao;
 import com.zengtong.DAO.WeiboDao;
+import com.zengtong.model.User;
 import com.zengtong.model.Weibo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class WeiboService {
@@ -17,6 +22,9 @@ public class WeiboService {
 
     @Autowired
     private QiNiuService qiNiuService;
+
+    @Autowired
+    private UserDao userDao;
 
     public String UpWeibo(int user_id,String content, MultipartFile[] files){
 
@@ -41,6 +49,58 @@ public class WeiboService {
         weiboDao.insertWeibo(weibo);
 
         return pic_url.toString();
+    }
+
+    private static String[] splitPicName(String name){
+
+        return name.split("\\|");
+
+    }
+
+    public JSONArray ListWeiboByUserId(int usrId,int offset,int count){
+
+        List<Weibo> weibos =  weiboDao.showWeiboByUserId(usrId,offset,count);
+
+        if( weibos.isEmpty()) return null;
+
+        JSONArray jsonArray = new JSONArray();
+
+        User user = userDao.selectById(usrId);
+
+        for(Weibo weibo : weibos){
+            JSONObject json = new JSONObject();
+            json.put("username",user.getName());
+            json.put("CommentCount",weibo.getCommentCount());
+            json.put("LikeCount",weibo.getLikeCount());
+            json.put("CreateDate",weibo.getCreateDate());
+            json.put("Content",weibo.getContent());
+            json.put("pic_url",splitPicName(weibo.getPicUrl()));
+            jsonArray.add(json);
+        }
+        return jsonArray;
+    }
+
+    public JSONArray ListAllWeibo(int offset,int count){
+
+        List<Weibo> weibos = weiboDao.showAllWeibo(offset,count);
+
+        if(weibos.isEmpty()) return  null;
+
+        JSONArray jsonArray = new JSONArray();
+
+        for (Weibo weibo : weibos){
+            User user =  userDao.selectById(weibo.getUserId());
+            JSONObject json = new JSONObject();
+            json.put("username",user.getName());
+            json.put("CommentCount",weibo.getCommentCount());
+            json.put("LikeCount",weibo.getLikeCount());
+            json.put("CreateDate",weibo.getCreateDate());
+            json.put("Content",weibo.getContent());
+            json.put("pic_url",splitPicName(weibo.getPicUrl()));
+            jsonArray.add(json);
+        }
+
+        return jsonArray;
     }
 
 }

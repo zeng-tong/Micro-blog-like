@@ -1,5 +1,6 @@
 package com.zengtong.Controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.zengtong.Service.WeiboService;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
@@ -42,9 +43,30 @@ public class WeiboController {
             return Tool.getJSONString(1,"文本内容不能为空");
         }
 
-        weiboService.UpWeibo(hostHolder.getUser().getId(),content,files);
+        String url = weiboService.UpWeibo(hostHolder.getUser().getId(),content,files);
 
-        return Tool.getJSONString(0,"上传成功");
+        return Tool.getJSONString(0,Tool.QINIUDOMIN + url);
+    }
+
+    @RequestMapping(value = "/showWeibo")
+    @ResponseBody
+    public String showWeibo(@RequestParam(value = "userId",defaultValue = "")String usrId){
+
+        JSONArray jsonArray;
+
+
+        if (usrId.equals("")) {
+            jsonArray = weiboService.ListAllWeibo(0, 10);
+        } else {
+            jsonArray = weiboService.ListWeiboByUserId(Integer.valueOf(usrId), 0, 10);
+        }
+
+        if(jsonArray == null) return Tool.getJSONString(1,"没有该用户的记录");
+
+        return jsonArray.toJSONString();
+
+
+
     }
 
 }
