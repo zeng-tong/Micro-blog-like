@@ -11,6 +11,13 @@ public class Tool {
 
     private static final Logger logger = LoggerFactory.getLogger(Tool.class);
 
+
+    public static final String ACCESSKEY = "YrCssKKKBUuxbAvASlA2SICBja7kNGW6VOmu8ck7";
+
+    public static final String SECRETKEY = "VR0bdfLAc0aOdZnY3aScVZuZXdg3-R5Tl_BQnZAf";
+
+    public static final String bucket = "summercamp";
+
     public static final String MYDOMIN = "http://127.0.0.1:8888/";
 
     public static final String IMAGE_DIR = "/home/znt/Desktop/img/";

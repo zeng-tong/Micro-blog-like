@@ -1,6 +1,7 @@
 package com.zengtong.Controller;
 
 import com.zengtong.Service.NewsService;
+import com.zengtong.Service.QiNiuService;
 import com.zengtong.Utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class NewsController {
 
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private QiNiuService qiNiuService;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -41,6 +45,30 @@ public class NewsController {
         return Tool.getJSONString(0,map);
 
     }
+
+    @RequestMapping(value = "/qiniu", method = RequestMethod.POST)
+    @ResponseBody
+    public String upImageToQiNiu(@RequestParam("file") MultipartFile[] files){
+
+        Map<String,Object> map = new HashMap<>();
+
+        for(MultipartFile file:files){
+
+            String url = qiNiuService.upToCloud(file);
+
+            if(url == null){
+
+                map.put(file.getOriginalFilename() + "上传失败","error");
+
+            }
+            map.put(url,"success");
+        }
+
+        return Tool.getJSONString(0,map);
+
+    }
+
+
 
     @RequestMapping(value = "/image",method = RequestMethod.GET)
     @ResponseBody
