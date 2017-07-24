@@ -1,6 +1,5 @@
 package com.zengtong.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -33,8 +32,7 @@ public class QiNiuService {
 北美 	Zone.zoneNa0()
 
         */
-
-        JSONObject json = new JSONObject();
+        String filename;
 
         Configuration cfg = new Configuration(Zone.zone2());
 
@@ -42,24 +40,23 @@ public class QiNiuService {
 
         String key = null;
 
-
         try{
 
             Response response = uploadManager.put(file.getInputStream(),key,GenerateUpToken(),null,null);
 
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(),DefaultPutRet.class);
 
-            json.put(putRet.hash,"Filename");
+            filename = putRet.hash;
 
         } catch (QiniuException e) {
             e.printStackTrace();
-            return null;
+            filename = null;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            filename = null;
         }
 
-        return json.toJSONString();
+        return filename;
     }
 
 

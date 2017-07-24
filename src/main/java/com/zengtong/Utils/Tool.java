@@ -55,8 +55,9 @@ public class Tool {
     }
 
 
-    public static boolean isAllowUpload(String suffix){
-        suffix = suffix.toLowerCase();
+    public static boolean isAllowUpload(String filename){
+
+        String suffix = suffix(filename);
 
         for(String cmp : FILE){
             if(cmp.equals(suffix)){
@@ -64,6 +65,17 @@ public class Tool {
             }
         }
         return false;
+    }
+
+    public static String suffix(String filename){
+
+        int index = filename.lastIndexOf('.');
+
+        if(index > 0){
+            return filename.substring(index + 1).toLowerCase();
+        }
+
+        return null;
     }
 
     public static String getJSONString(int code) {

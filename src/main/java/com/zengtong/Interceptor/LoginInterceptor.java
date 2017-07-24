@@ -35,9 +35,14 @@ public class LoginInterceptor implements HandlerInterceptor{
 
         Cookie[] cookies = httpServletRequest.getCookies();
 
+        if(cookies == null){
+            return true;
+        }
+
         for(Cookie cookie : cookies){
             if(cookie.getName().equals("ticket")){
                 ticket = cookie.getValue();
+                break;
             }
         }
         /*
@@ -66,7 +71,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle");
+        System.out.println("postHandle : " + httpServletRequest.getRequestURI());
     }
 
     @Override

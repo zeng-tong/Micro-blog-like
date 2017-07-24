@@ -66,6 +66,7 @@ public class LoginController {
             json.put("msg","User :" + hostHolder.getUser().getName() + "already logged on.");
             return json.toJSONString();
         }
+
         Map map = userSercvice.login(name,pwd);
 
         if(map.containsKey("error")){

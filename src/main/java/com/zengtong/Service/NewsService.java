@@ -18,15 +18,12 @@ public class NewsService {
 
     public String uploadImage(MultipartFile file) {
 
-        int index = file.getOriginalFilename().lastIndexOf('.');
 
-        String FileType = file.getOriginalFilename().substring(index+1).toLowerCase();
-
-        if (!Tool.isAllowUpload(FileType)){
+        if (!Tool.isAllowUpload(file.getOriginalFilename())){
             return null;
         }
 
-        final String filename = UUID.randomUUID().toString().replaceAll("-","")+"."+FileType;
+        final String filename = UUID.randomUUID().toString().replaceAll("-","")+"."+ Tool.suffix(file.getOriginalFilename());
 
 
         try {
@@ -42,11 +39,9 @@ public class NewsService {
 
     public String getImage(String filename, HttpServletResponse response) throws IOException {
 
-        int index = filename.lastIndexOf('.');
 
-        String suffix = filename.substring(index + 1);
 
-        response.setContentType("image/" + suffix);
+        response.setContentType("image/" + Tool.suffix(filename));
 
         try{
 

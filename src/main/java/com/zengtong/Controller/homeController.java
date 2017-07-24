@@ -1,7 +1,6 @@
 package com.zengtong.Controller;
 
 import com.zengtong.model.HostHolder;
-import com.zengtong.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +25,14 @@ public class homeController {
     /*    model.addAttribute("name","ZengTong");
         model.addAttribute("user",new User("小哥",10,"pswd"));*/
 
-        User user = new User();
+        String info =  "NULL";
+
         if(hostHolder.getUser() != null){
-            user = hostHolder.getUser();
-        }else{
-            user.setName("NULL");
+            info = hostHolder.getUser().getName();
         }
 
-        session.setAttribute("user",user);
+        session.setAttribute("info",info);
+
 
         return "home";
 

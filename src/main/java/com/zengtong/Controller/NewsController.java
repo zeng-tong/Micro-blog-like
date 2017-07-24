@@ -36,10 +36,10 @@ public class NewsController {
 
             if(url == null){
 
-                map.put(file.getOriginalFilename() + "上传失败","error"); //
+                map.put(file.getOriginalFilename(),  "上传失败"); //
 
             }
-            map.put(url,"success");
+            map.put(url,"上传成功");
         }
 
         return Tool.getJSONString(0,map);
@@ -58,10 +58,10 @@ public class NewsController {
 
             if(filename == null){
 
-                map.put(file.getOriginalFilename() + "上传失败","error");
+                map.put(file.getOriginalFilename() , "上传失败");
 
             }
-            map.put(filename,"success");
+            map.put(filename,"上传成功");
         }
 
         return Tool.getJSONString(0,map);
