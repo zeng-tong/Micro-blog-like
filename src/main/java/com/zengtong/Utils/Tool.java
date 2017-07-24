@@ -18,6 +18,8 @@ public class Tool {
 
     public static final String bucket = "summercamp";
 
+    public static final String QINIUDOMIN = "http://otkji1m02.bkt.clouddn.com/";
+
     public static final String MYDOMIN = "http://127.0.0.1:8888/";
 
     public static final String IMAGE_DIR = "/home/znt/Desktop/img/";

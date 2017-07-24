@@ -49,7 +49,7 @@ public class QiNiuService {
 
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(),DefaultPutRet.class);
 
-            json.fluentPut(putRet.key,"putRetKey").put(putRet.hash,"putRetHash");
+            json.put(putRet.hash,"Filename");
 
         } catch (QiniuException e) {
             e.printStackTrace();
@@ -62,4 +62,19 @@ public class QiNiuService {
         return json.toJSONString();
     }
 
+
+    /*public String getImageFromCloud(String filename,
+                                    HttpServletResponse response) throws IOException {
+        int size = 0;
+        try{
+
+            size = StreamUtils.copy(new FileInputStream(Tool.QINIUDOMIN + filename),response.getOutputStream());
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return String.valueOf(size);
+    }*/
 }

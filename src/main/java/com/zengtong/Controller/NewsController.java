@@ -54,14 +54,14 @@ public class NewsController {
 
         for(MultipartFile file:files){
 
-            String url = qiNiuService.upToCloud(file);
+            String filename = qiNiuService.upToCloud(file);
 
-            if(url == null){
+            if(filename == null){
 
                 map.put(file.getOriginalFilename() + "上传失败","error");
 
             }
-            map.put(url,"success");
+            map.put(filename,"success");
         }
 
         return Tool.getJSONString(0,map);
@@ -95,5 +95,36 @@ public class NewsController {
             return Tool.getJSONString(1,map);
         }
     }
+
+    @RequestMapping(value = "/CloudImage",method = RequestMethod.GET)
+//    @ResponseBody
+    public String GetImageFromQiNiu(@RequestParam("name")String name,
+                           HttpServletResponse response) throws IOException {
+
+        Map<String ,Object> map = new HashMap<>();
+
+
+       /* try {
+
+            String statu = qiNiuService.getImageFromCloud(name,response);
+
+            if(statu == null){
+                map.put("error","图片下载失败");
+                return Tool.getJSONString(1,map);
+            }
+
+            map.put("success","下载成功");
+
+            return Tool.getJSONString(0,map); //
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            map.put("error",e.getMessage());
+            return Tool.getJSONString(1,map);
+        }*/
+
+       return "redirect:" + Tool.QINIUDOMIN + name;
+    }
+
 
 }
