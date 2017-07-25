@@ -33,7 +33,6 @@ public class homeController {
 
         session.setAttribute("info",info);
 
-
         return "home";
 
     }
@@ -49,7 +48,7 @@ public class homeController {
             red.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         }*/
 
-        httpSession.setAttribute("msg","Jump from redirect");
+        httpSession.setAttribute("info","Jump from redirect");
 
         return "redirect:/";
 

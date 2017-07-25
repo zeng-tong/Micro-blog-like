@@ -20,7 +20,7 @@ public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Pointcut("execution(public * com.zengtong.Controller.WeiboController.*(..))")
+    @Pointcut("execution(public * com.zengtong.Controller.homeController.*(..))")
     public void log(){
 
     }

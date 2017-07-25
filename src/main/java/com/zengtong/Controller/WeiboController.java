@@ -28,7 +28,7 @@ public class WeiboController {
     @RequestMapping(value = "/weibo",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String UpWeibo(@RequestParam("content")String content,
-                          @RequestParam("pic")MultipartFile[] files,
+                          @RequestParam(value = "pic")MultipartFile[] files,
                           HttpServletResponse response) throws IOException {
 
         if(hostHolder.getUser() == null){

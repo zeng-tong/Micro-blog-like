@@ -54,7 +54,16 @@ public class WeiboService {
 
     private static String[] splitPicName(String name){
 
-        return name.split("\\|");
+
+        String [] strings  = new String [name.split("\\|").length];
+
+        int i = 0;
+
+        for(String string: name.split("\\|")){
+            strings[i++] = Tool.QINIUDOMIN + string;
+        }
+
+        return strings;
 
     }
 

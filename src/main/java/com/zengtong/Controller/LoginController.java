@@ -4,6 +4,7 @@ package com.zengtong.Controller;
 import com.alibaba.fastjson.JSONObject;
 import com.zengtong.DAO.TicketDao;
 import com.zengtong.Service.UserSercvice;
+import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,23 +32,19 @@ public class LoginController {
     @Autowired
     private HostHolder hostHolder;
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register",method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
-    public String register(@RequestParam("name")String username,
+    public String register(@RequestParam("username")String username,
                            @RequestParam("password")String password){
 
-        JSONObject json = new JSONObject();
 
         Map<String,Object> map = userSercvice.register(username,password);
 
         if(map.containsKey("error")){
-            json.put("error",map.get("error"));
-            return json.toJSONString();
+            return Tool.getJSONString(1,map.get("error").toString());
         }
 
-        json.put("msg","success");
-
-        return  json.toJSONString();
+        return Tool.getJSONString(0,"注册成功");
     }
 
 
