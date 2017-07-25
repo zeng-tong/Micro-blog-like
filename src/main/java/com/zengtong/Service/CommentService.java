@@ -30,9 +30,10 @@ public class CommentService {
     private WeiboDao weiboDao;
 
 
-
     @Autowired
     private QiNiuService qiNiuService;
+
+
     public String addComment(int entityType, int entityId, int userId,
                              MultipartFile[] files,String content){
         /*
@@ -73,12 +74,13 @@ public class CommentService {
     @Autowired
     private UserDao userDao;
 
-    public String  showComment(int entityType,int entityId){
+    public String  showComment(int entityType,int entityId,int offset,int count){
 
 
         JSONArray jsonArray = new JSONArray();
 
-        List<Comment> comments = commentDao.showComment(entityType,entityId);
+
+        List<Comment> comments = commentDao.showComment(entityType,entityId,offset,count);
 
         if(comments.isEmpty()){
             return null;
@@ -108,5 +110,26 @@ public class CommentService {
         }
 
         return jsonArray.toJSONString();
+    }
+
+
+    public String deleteComment(int commentId,int userId){
+
+        Comment comment = commentDao.selectCommentById(commentId);
+
+        if(comment == null ){
+            return Tool.getJSONString(1,"没有评论");
+        }
+        else if( userId == comment.getUserId()){
+
+            switch (comment.getEntityType()){
+                case ENTITY_WEIBO : weiboDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId()); break;
+                case ENTITY_COMMENT : commentDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
+            }
+            commentDao.deleteComment(commentId);
+            return Tool.getJSONString(0,"删除成功");
+        }
+
+        return Tool.getJSONString(1,"怎么能让你删除别人的评论呢?!");
     }
 }

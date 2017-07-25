@@ -29,6 +29,7 @@ public class WeiboService {
     @Autowired
     private UserDao userDao;
 
+
     public String UpWeibo(int user_id,String content, MultipartFile[] files){
 
         StringBuilder pic_url = new StringBuilder();
@@ -101,14 +102,20 @@ public class WeiboService {
         return jsonArray.toJSONString();
     }
 
-    public String deleteWeibo(int weiboId){
+    public String deleteWeibo(int weiboId,int userId){
 
 
-        if(weiboDao.selectWeiboById(weiboId) != null){
+        Weibo weibo = weiboDao.selectWeiboById(weiboId);
+
+        if(weibo == null ){
+            return Tool.getJSONString(1,"这条微博不存在");
+        }
+        if(userId == weibo.getUserId()){
             weiboDao.deleteWeibo(weiboId);
             return Tool.getJSONString(0,"删除成功");
         }
-        return Tool.getJSONString(1,"这条微博不存在");
+
+        return Tool.getJSONString(1,"怎么能让你删除别人的微博呢?!");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.zengtong.Utils;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +88,9 @@ public class Tool {
         int i = 0;
 
         for(String string: name.split("\\|")){
-            strings[i++] = Tool.QINIUDOMIN + string;
+            if(!StringUtils.isBlank(string)){
+                strings[i++] = Tool.QINIUDOMIN + string;
+            }
         }
 
         return strings;

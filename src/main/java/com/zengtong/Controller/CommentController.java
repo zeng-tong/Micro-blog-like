@@ -40,13 +40,25 @@ public class CommentController {
     @RequestMapping(value = "/showComment")
     @ResponseBody
     public String showComment(@RequestParam(value = "entityType") int entityType ,
-                              @RequestParam(value = "entityId") int entityId){
+                              @RequestParam(value = "entityId") int entityId,
+                              @RequestParam(value = "offset")int offset,
+                              @RequestParam(value = "count")int count){
 
-        String res = commentService.showComment(entityType,entityId);
+        String res = commentService.showComment(entityType,entityId,offset,count);
 
         if(res == null) return Tool.getJSONString(1,"没有评论");
         else return  Tool.getJSONString(0,res);
 
     }
 
+
+    @RequestMapping(value = "/deleteComment")
+    @ResponseBody
+    public String deleteComment(@RequestParam(value = "id")int commentId){
+
+        if(hostHolder.getUser() == null) return Tool.getJSONString(1,"请先登录");
+
+        return commentService.deleteComment(commentId,hostHolder.getUser().getId());
+
+    }
 }

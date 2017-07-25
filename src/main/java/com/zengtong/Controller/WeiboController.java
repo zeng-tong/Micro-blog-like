@@ -53,7 +53,6 @@ public class WeiboController {
 
         String res;
 
-
         if (usrId.equals("")) {
             res = weiboService.ListAllWeibo(0, 10);
         } else {
@@ -66,11 +65,19 @@ public class WeiboController {
 
     }
 
-    @RequestMapping(value = "deleteWeibo")
+    @RequestMapping(value = "/deleteWeibo")
     @ResponseBody
-    public String deleteWeibo(@RequestParam("weiboId") int weiboId){
+    public String deleteWeibo(@RequestParam("weiboId") int weiboId,
+                              HttpServletResponse response) throws IOException {
 
-        return weiboService.deleteWeibo(weiboId);
+        if(hostHolder.getUser() == null){
+            response.sendRedirect("/");
+            return Tool.getJSONString(1,"登录之后才能删除");
+        }
+
+        int userid = hostHolder.getUser().getId();
+
+        return weiboService.deleteWeibo(weiboId,userid);
 
     }
 
