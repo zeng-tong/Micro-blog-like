@@ -1,6 +1,5 @@
 package com.zengtong.Controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.zengtong.Service.WeiboService;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
@@ -52,18 +51,18 @@ public class WeiboController {
     @ResponseBody
     public String showWeibo(@RequestParam(value = "userId",defaultValue = "")String usrId){
 
-        JSONArray jsonArray;
+        String res;
 
 
         if (usrId.equals("")) {
-            jsonArray = weiboService.ListAllWeibo(0, 10);
+            res = weiboService.ListAllWeibo(0, 10);
         } else {
-            jsonArray = weiboService.ListWeiboByUserId(Integer.valueOf(usrId), 0, 10);
+            res = weiboService.ListWeiboByUserId(Integer.valueOf(usrId), 0, 10);
         }
 
-        if(jsonArray == null) return Tool.getJSONString(1,"没有该用户的记录");
+        if(res == null) return Tool.getJSONString(1,"没有该用户的记录");
 
-        return jsonArray.toJSONString();
+        return Tool.getJSONString(0,res);
 
     }
 

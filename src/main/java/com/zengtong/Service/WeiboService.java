@@ -56,7 +56,7 @@ public class WeiboService {
 
 
 
-    public JSONArray ListWeiboByUserId(int usrId,int offset,int count){
+    public String ListWeiboByUserId(int usrId,int offset,int count){
 
         List<Weibo> weibos =  weiboDao.showWeiboByUserId(usrId,offset,count);
 
@@ -76,10 +76,10 @@ public class WeiboService {
             json.put("pic_url",splitPicName(weibo.getPicUrl()));
             jsonArray.add(json);
         }
-        return jsonArray;
+        return jsonArray.toJSONString();
     }
 
-    public JSONArray ListAllWeibo(int offset,int count){
+    public String ListAllWeibo(int offset,int count){
 
         List<Weibo> weibos = weiboDao.showAllWeibo(offset,count);
 
@@ -98,7 +98,7 @@ public class WeiboService {
             json.put("pic_url",splitPicName(weibo.getPicUrl()));
             jsonArray.add(json);
         }
-        return jsonArray;
+        return jsonArray.toJSONString();
     }
 
     public String deleteWeibo(int weiboId){

@@ -37,9 +37,16 @@ public class CommentController {
 
         return commentService.addComment(entityType,entityId,userId,files,content);
     }
-    /*
     @RequestMapping(value = "/showComment")
     @ResponseBody
-    public String showComment()*/
+    public String showComment(@RequestParam(value = "entityType") int entityType ,
+                              @RequestParam(value = "entityId") int entityId){
+
+        String res = commentService.showComment(entityType,entityId);
+
+        if(res == null) return Tool.getJSONString(1,"没有评论");
+        else return  Tool.getJSONString(0,res);
+
+    }
 
 }

@@ -80,6 +80,7 @@ public class Tool {
 
     public static String[] splitPicName(String name){
 
+        if(name == null) return null;
 
         String [] strings  = new String [name.split("\\|").length];
 

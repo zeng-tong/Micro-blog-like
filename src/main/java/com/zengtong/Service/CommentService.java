@@ -1,6 +1,9 @@
 package com.zengtong.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.zengtong.DAO.CommentDao;
+import com.zengtong.DAO.UserDao;
 import com.zengtong.DAO.WeiboDao;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.Comment;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -66,14 +70,43 @@ public class CommentService {
         return Tool.getJSONString(0,"评论成功");
     }
 
-/*    public String showComment(int entityType,int entityId){
+    @Autowired
+    private UserDao userDao;
 
+    public String  showComment(int entityType,int entityId){
+
+
+        JSONArray jsonArray = new JSONArray();
 
         List<Comment> comments = commentDao.showComment(entityType,entityId);
 
-        if(comments == null){
-            return Tool.getJSONString(1,"没有评论");
+        if(comments.isEmpty()){
+            return null;
+        }
+        else{
+            for(Comment comment : comments){
+
+                JSONObject json = new JSONObject();
+
+                String username = userDao.selectById(comment.getUserId()).getName();
+
+                json.put("NickName",username);
+
+                json.put("createDate",comment.getCreateDate());
+
+                json.put("content",comment.getContent());
+
+                json.put("picUrl",Tool.splitPicName(comment.getPicUrl()));
+
+                json.put("likeCount",comment.getLikeCount());
+
+//                comment.getReplyCount()
+                jsonArray.add(json);
+
+            }
+
         }
 
-    }*/
+        return jsonArray.toJSONString();
+    }
 }
