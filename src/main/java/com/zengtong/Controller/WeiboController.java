@@ -65,7 +65,13 @@ public class WeiboController {
 
         return jsonArray.toJSONString();
 
+    }
 
+    @RequestMapping(value = "deleteWeibo")
+    @ResponseBody
+    public String deleteWeibo(@RequestParam("weiboId") int weiboId){
+
+        return weiboService.deleteWeibo(weiboId);
 
     }
 

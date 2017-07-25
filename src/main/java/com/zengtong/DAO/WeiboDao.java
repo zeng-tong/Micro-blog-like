@@ -1,10 +1,7 @@
 package com.zengtong.DAO;
 
 import com.zengtong.model.Weibo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,9 +20,15 @@ public interface WeiboDao {
     @Insert({"insert into ",TABLE_NAME,"(", INSERT_FIELDS,") values(#{userId},#{status},#{commentCount},#{picUrl},#{createDate}, #{content}, #{likeCount})"})
     int insertWeibo(Weibo weibo);
 
-    @Select({"select ",SELECT_FIELDS, "from ",TABLE_NAME, "where user_id=#{userId} limit #{offset},#{count}"})
+    @Select({"select ",SELECT_FIELDS, "from ",TABLE_NAME, "where user_id=#{userId} and status = 0 limit #{offset},#{count}"})
     List<Weibo> showWeiboByUserId(@Param("userId") int userId, @Param("offset") int offset, @Param("count") int count);
 
-    @Select({"select ",SELECT_FIELDS, "from ",TABLE_NAME," limit #{offset},#{count}"})
+    @Select({"select ",SELECT_FIELDS, "from ",TABLE_NAME," where status = 0 limit #{offset},#{count}"})
     List<Weibo> showAllWeibo(@Param("offset") int offset, @Param("count") int count);
+
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,"where id=#{id}"})
+    Weibo selectWeiboById(Integer id);
+
+    @Update({"update ", TABLE_NAME ,"set status=1 where id=#{id}"})
+    void deleteWeibo(Integer id);
 }

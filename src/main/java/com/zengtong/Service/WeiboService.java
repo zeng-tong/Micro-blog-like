@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zengtong.DAO.UserDao;
 import com.zengtong.DAO.WeiboDao;
+import com.zengtong.Utils.Tool;
 import com.zengtong.model.User;
 import com.zengtong.model.Weibo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,8 +100,17 @@ public class WeiboService {
             json.put("pic_url",splitPicName(weibo.getPicUrl()));
             jsonArray.add(json);
         }
-
         return jsonArray;
+    }
+
+    public String deleteWeibo(int weiboId){
+
+
+        if(weiboDao.selectWeiboById(weiboId) != null){
+            weiboDao.deleteWeibo(weiboId);
+            return Tool.getJSONString(0,"删除成功");
+        }
+        return Tool.getJSONString(1,"这条微博不存在");
     }
 
 }
