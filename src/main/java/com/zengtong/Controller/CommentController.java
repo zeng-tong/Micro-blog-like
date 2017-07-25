@@ -37,5 +37,9 @@ public class CommentController {
 
         return commentService.addComment(entityType,entityId,userId,files,content);
     }
+    /*
+    @RequestMapping(value = "/showComment")
+    @ResponseBody
+    public String showComment()*/
 
 }

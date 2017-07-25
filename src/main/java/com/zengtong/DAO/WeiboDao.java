@@ -31,4 +31,7 @@ public interface WeiboDao {
 
     @Update({"update ", TABLE_NAME ,"set status=1 where id=#{id}"})
     void deleteWeibo(Integer id);
+
+    @Update({"update ",TABLE_NAME," set comment_count=comment_count+1 where id = #{weiboId}"})
+    void addCommentCount(int weiboId);
 }
