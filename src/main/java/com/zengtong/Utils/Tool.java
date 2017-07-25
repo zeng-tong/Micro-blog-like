@@ -78,6 +78,21 @@ public class Tool {
         return null;
     }
 
+    public static String[] splitPicName(String name){
+
+
+        String [] strings  = new String [name.split("\\|").length];
+
+        int i = 0;
+
+        for(String string: name.split("\\|")){
+            strings[i++] = Tool.QINIUDOMIN + string;
+        }
+
+        return strings;
+
+    }
+
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();
         json.put("code", code);

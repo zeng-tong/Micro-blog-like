@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 import java.util.List;
 
+import static com.zengtong.Utils.Tool.splitPicName;
+
 @Service
 public class WeiboService {
 
@@ -52,20 +54,7 @@ public class WeiboService {
         return pic_url.toString();
     }
 
-    private static String[] splitPicName(String name){
 
-
-        String [] strings  = new String [name.split("\\|").length];
-
-        int i = 0;
-
-        for(String string: name.split("\\|")){
-            strings[i++] = Tool.QINIUDOMIN + string;
-        }
-
-        return strings;
-
-    }
 
     public JSONArray ListWeiboByUserId(int usrId,int offset,int count){
 

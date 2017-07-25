@@ -28,7 +28,7 @@ public class WeiboController {
     @RequestMapping(value = "/weibo",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String UpWeibo(@RequestParam("content")String content,
-                          @RequestParam(value = "pic")MultipartFile[] files,
+                          @RequestParam(value = "pic",required = false)MultipartFile[] files, // required = false 没有这个参数的时候不会报404
                           HttpServletResponse response) throws IOException {
 
         if(hostHolder.getUser() == null){
