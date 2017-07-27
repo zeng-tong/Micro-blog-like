@@ -25,13 +25,13 @@ public class homeController {
     /*    model.addAttribute("name","ZengTong");
         model.addAttribute("user",new User("小哥",10,"pswd"));*/
 
-        String info =  "NULL";
+        String name =  "NULL";
 
         if(hostHolder.getUser() != null){
-            info = hostHolder.getUser().getName();
+            name = hostHolder.getUser().getName();
         }
 
-        session.setAttribute("info",info);
+        session.setAttribute("name",name);
 
         return "home";
 

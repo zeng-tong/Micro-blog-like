@@ -18,3 +18,13 @@ CREATE TABLE `SummerCamp`.`comment` (
   `like_count` INT NULL,
   `reply_count` INT NULL,
   PRIMARY KEY (`id`));
+
+CREATE TABLE `SummerCamp`.`message` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` VARCHAR(45) NULL,
+  `from_id` INT NULL,
+  `to_id` INT NULL,
+  `conversation_id` INT NULL,
+  `has_read` INT NULL,
+  PRIMARY KEY (`id`));
+

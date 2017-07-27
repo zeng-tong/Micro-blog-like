@@ -174,7 +174,9 @@ public static void StringUtil(){
 //            JSONUtil();
 //            XMLUtil();
 //            OfficeUtil();
-            PDFUtil();
+//            PDFUtil();
+            int to_id = 1,from_id = 2;
+            System.out.println(String.format("%d_%d",Math.min(to_id,from_id),Math.max(to_id,from_id)));
         }catch (Exception e){
             e.printStackTrace();
             print(0, "error : "+ e.getMessage());
