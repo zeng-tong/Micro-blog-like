@@ -62,4 +62,28 @@ public class MessageService {
 
     }
 
+    public JSONArray showListMessage(int myId){
+
+        List<Message> messages = messageDao.showListMessage(myId);
+
+        JSONArray jsons = new JSONArray();
+
+        if(messages.isEmpty()) return jsons;
+
+        for (Message message : messages){
+
+            JSONObject json = new JSONObject();
+
+            json.put("nums",message.getId());
+            json.put("createDate",message.getCreateDate());
+            json.put("content",message.getContent());
+            json.put("To",message.getToId());
+            json.put("From",message.getFromId());
+
+            jsons.add(json);
+        }
+
+        return jsons;
+    }
+
 }

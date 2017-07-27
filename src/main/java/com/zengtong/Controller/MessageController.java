@@ -69,4 +69,20 @@ public class MessageController {
         return Tool.getJSONString(0,jsons.toJSONString());
     }
 
+    @RequestMapping(value = "/showListMessage")
+    @ResponseBody
+    public String showListMessage(){
+
+        if(hostHolder.getUser() == null){
+            return Tool.getJSONString(999,"用户未登录");
+        }
+
+        JSONArray jsons = messageService.showListMessage(hostHolder.getUser().getId());
+
+        if(jsons.isEmpty()) return Tool.getJSONString(1,"没有消息");
+
+        return jsons.toJSONString();
+
+    }
+
 }

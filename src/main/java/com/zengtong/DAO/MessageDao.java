@@ -23,4 +23,6 @@ public interface MessageDao {
     @Select({"select " ,SELECT_FIELDS , " from ",TABLE_NAME , " where conversation_id=#{conversationId} order by create_date desc"})
     List<Message> showDetailMessage(String conversationId);
 
+    @Select({"select count(id) as id, " ,INSERT_FIELDS , " from ","( select * from ",TABLE_NAME ,"where to_id = #{myId} or from_id=#{myId} order by create_date desc ) t group by conversation_id order by create_date desc"})
+    List<Message> showListMessage(int myId);
 }
