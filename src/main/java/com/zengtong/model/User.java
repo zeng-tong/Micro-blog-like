@@ -6,14 +6,17 @@ package com.zengtong.model;
 
 
 public class User {
-    public User(String name, String password, String salt, String head_url) {
+    public User(String name, String password, String salt, String head_url,String email) {
         this.name = name;
         this.password = password;
         this.salt = salt;
         this.head_url = head_url;
+        this.email = email;
     }
 
     public User(){}
+
+    private String email;
 
     private int id;
 
@@ -63,5 +66,13 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -1,5 +1,6 @@
 package com.zengtong.Utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -117,5 +118,9 @@ public class Tool {
             json.put(entry.getKey(), entry.getValue());
         }
         return json.toJSONString();
+    }
+
+    public static String getJSONString(Object obj){
+        return JSON.toJSONString(obj);
     }
 }

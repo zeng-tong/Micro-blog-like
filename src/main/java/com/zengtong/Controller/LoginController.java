@@ -2,10 +2,15 @@ package com.zengtong.Controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.zengtong.Async.EventModel;
+import com.zengtong.Async.EventProducer;
+import com.zengtong.Async.EventType;
 import com.zengtong.DAO.TicketDao;
+import com.zengtong.DAO.UserDao;
 import com.zengtong.Service.UserSercvice;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
+import com.zengtong.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,22 +32,35 @@ public class LoginController {
     private UserSercvice userSercvice;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private TicketDao ticketDao;
 
     @Autowired
     private HostHolder hostHolder;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @RequestMapping(value = "/register",method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public String register(@RequestParam("username")String username,
-                           @RequestParam("password")String password){
+                           @RequestParam("password")String password,
+                           @RequestParam("email")String email){
 
 
-        Map<String,Object> map = userSercvice.register(username,password);
+        Map<String,Object> map = userSercvice.register(username,password,email);
 
         if(map.containsKey("error")){
             return Tool.getJSONString(1,map.get("error").toString());
         }
+
+        User user = userDao.selectByEmail(email);
+
+        int user_id = user.getId();
+
+        eventProducer.fireEvent(new EventModel().setTo_id(user_id).setEventType(EventType.REGISTER));
 
         return Tool.getJSONString(0,"注册成功");
     }

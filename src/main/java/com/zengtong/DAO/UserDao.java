@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDao {
     String TABLE_NAME = " user ";
-    String INSET_FIELDS = " name, password , salt, head_url ";
-    String SELECT_FIELDS = " id, name, password, salt, head_url";
-    @Insert({"insert into",TABLE_NAME,"(",INSET_FIELDS,") values(#{name},#{password},#{salt}, #{head_url})"})
+    String INSET_FIELDS = " name, password , salt, head_url ,email ";
+    String SELECT_FIELDS = " id, name, password, salt, head_url ,email";
+    @Insert({"insert into",TABLE_NAME,"(",INSET_FIELDS,") values(#{name},#{password},#{salt}, #{head_url} ,#{email})"})
     int addUser(User user);
 
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where id=#{id}"})
@@ -23,5 +23,8 @@ public interface UserDao {
 
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where name=#{name}"})
     User selectByName(String name);
+
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where email=#{email}"})
+    User selectByEmail(String email);
 
 }

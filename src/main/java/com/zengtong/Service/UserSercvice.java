@@ -23,7 +23,9 @@ public class UserSercvice {
     @Autowired
     private TicketService ticketService;
 
-    public Map<String,Object> register(String Username, String Password){
+    public Map<String,Object> register(String Username, String Password,String email){
+
+        // to do 判断email是否合法
 
         Map<String,Object> map = new HashMap<String ,Object>();
 
@@ -32,7 +34,7 @@ public class UserSercvice {
 
 
         if(user != null){
-            map.put("failed","Already exist Username");
+            map.put("error","Already exist Username");
             return map;
         }
 
@@ -42,7 +44,7 @@ public class UserSercvice {
 
         String pwd = Tool.MD5(Password + salt);
 
-        user =  new User(Username,pwd,salt,head_url);
+        user =  new User(Username,pwd,salt,head_url,email);
 
 
         userDao.addUser(user);

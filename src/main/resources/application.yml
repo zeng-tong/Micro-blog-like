@@ -18,5 +18,14 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 1000MB
+  mail:
+    host: smtp.163.com
+    username: unixsudo@163.com
+    password: 89X464
+    protocol: smtp
+    default-encoding: utf-8
+#    port: 587
+
+
 mybatis:
   config-location: classpath:mybatis-config.xml
