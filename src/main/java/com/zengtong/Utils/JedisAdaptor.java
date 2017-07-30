@@ -44,6 +44,65 @@ public class JedisAdaptor implements InitializingBean {
         }
     }
 
+    public long incr(String key){
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+
+            return jedis.incr(key);
+
+        }catch (Exception e){
+            logger.info("发生异常 " + e.getMessage());
+            return 0;
+        }finally {
+
+            if(jedis != null){
+                jedis.close();
+            }
+
+        }
+    }
+    public long decr(String key){
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+
+            return jedis.decr(key);
+
+        }catch (Exception e){
+            logger.info("发生异常 " + e.getMessage());
+            return 0;
+        }finally {
+
+            if(jedis != null){
+                jedis.close();
+            }
+
+        }
+    }
+
+    public long del(String key){
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+
+            return jedis.del(key);
+
+        }catch (Exception e){
+            logger.info("发生异常 " + e.getMessage());
+            return 0;
+        }finally {
+
+            if(jedis != null){
+                jedis.close();
+            }
+
+        }
+    }
+
     public String set(String key,String value){
         Jedis jedis = null;
         try {

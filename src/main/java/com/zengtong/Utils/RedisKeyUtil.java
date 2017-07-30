@@ -6,7 +6,6 @@ package com.zengtong.Utils;
 public class RedisKeyUtil {
     private static String SPLIT = ":";
     private static String BIZ_LIKE = "LIKE";
-    private static String BIZ_DISLIKE = "DISLIKE";
     private static String BIZ_EVENT = "EVENT";
 
     public static String getEventQueueKey() {
@@ -17,7 +16,7 @@ public class RedisKeyUtil {
         return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 
-    public static String getDisLikeKey(int entityId, int entityType) {
-        return BIZ_DISLIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
+    public static String checkLike(int entityId, int entityType,int userId) {
+        return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId) + SPLIT + String.valueOf(userId);
     }
 }
