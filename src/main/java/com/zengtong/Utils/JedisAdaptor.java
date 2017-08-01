@@ -6,7 +6,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -202,6 +204,24 @@ public class JedisAdaptor implements InitializingBean {
         }
     }
 
+    public boolean zismember(String key,String value){
+
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            Long statu = jedis.zrank(key,value);
+            if (statu == null) return false;
+            return true;
+        }catch (Exception e){
+            logger.info("发生异常" + e.getMessage());
+            return false;
+        }finally {
+            if(jedis != null){
+                jedis.close();
+            }
+        }
+    }
+
     public long lpush(String key,String  value){
 
         Jedis jedis = null;
@@ -217,6 +237,29 @@ public class JedisAdaptor implements InitializingBean {
             }
         }
     }
+
+    public long zadd(String key,double score,String value){
+
+        Jedis jedis = null;
+
+        try{
+            jedis = pool.getResource();
+
+            return jedis.zadd(key,score,value);
+        }
+        catch (Exception e){
+
+            e.printStackTrace();
+
+            return 0;
+        }finally {
+            if(jedis != null){
+                jedis.close();
+            }
+        }
+    }
+
+
 
     /*
     * RPOP的阻塞版本，这个命令会给在给定的list无法弹出任何元素的时候阻塞连接。
@@ -236,6 +279,30 @@ public class JedisAdaptor implements InitializingBean {
         }
     }
 
+    public void followTransaction(int currentId,int userId){
+
+        Jedis jedis = null;
+
+        try {
+
+            jedis = pool.getResource();
+
+            Transaction transaction = new Jedis().multi();
+
+            String key = RedisKeyUtil.getBizFollowlistKey(currentId);
+            //关注列表里加上user
+            jedis.zadd(key,new Date().getTime(),String .valueOf(userId));
+            jedis.zadd(RedisKeyUtil.getBizFanslistKey(userId),new Date().getTime(),String .valueOf(currentId));
+
+            transaction.exec();
+
+        }catch (Exception e){
+            if (jedis != null)
+                jedis.close();
+        }
+
+    }
+
     public void setObject(String key,Object obj){
         set(key, JSON.toJSONString(obj));
     }
@@ -248,6 +315,8 @@ public class JedisAdaptor implements InitializingBean {
         }
         return null;
     }
+
+
 
 
 }

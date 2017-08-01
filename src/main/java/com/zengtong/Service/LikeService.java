@@ -25,7 +25,7 @@ public class LikeService {
             return jedisAdaptor.decr(key);
         }
 
-
+        //点赞数量
         String val = jedisAdaptor.get(key);
 
         if(val == null) {
