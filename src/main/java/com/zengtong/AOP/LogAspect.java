@@ -20,24 +20,28 @@ public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Pointcut("execution(public * com.zengtong.Controller.homeController.*(..))")
+    @Pointcut("execution(public * com.zengtong.Controller.LoginController.*(..))")
     public void log(){
 
     }
+
+
+
     @Before("log()")
     public void BeforeMethod(JoinPoint joinPoint){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\n"+joinPoint.getSignature() + ":");
+        sb.append(joinPoint.getSignature() + ": \n" );
 
         for(Object arg : joinPoint.getArgs()){
-            sb.append("\nArgs: " + arg.toString());
+            sb.append(arg.toString() + " , ");
         }
-        logger.info("\nBefore Method : " + sb.toString());
+        logger.info("Before:" + sb.toString());
     }
 
     @After("log()")
     public void AfterMethod(JoinPoint joinPoint){
-        logger.info( joinPoint.getSignature() + " execution completed.\n");
+        logger.info( "After: execution completed.\n");
     }
+
 }

@@ -10,6 +10,7 @@ import redis.clients.jedis.Transaction;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class JedisAdaptor implements InitializingBean {
@@ -297,11 +298,36 @@ public class JedisAdaptor implements InitializingBean {
             transaction.exec();
 
         }catch (Exception e){
+            logger.info("发生异常: " + e.getMessage());
+        }finally {
             if (jedis != null)
                 jedis.close();
         }
 
     }
+
+    public Set<String> zrange(String key, int start, int end){
+
+        Jedis jedis = null;
+
+        try {
+
+            jedis = pool.getResource();
+            Set<String> ret = jedis.zrange(key,start,end);
+
+            return ret;
+        }catch (Exception e){
+            logger.info("发生异常: " + e.getMessage());
+            return null;
+        }finally {
+            if (jedis != null)
+                jedis.close();
+        }
+
+    }
+
+
+
 
     public void setObject(String key,Object obj){
         set(key, JSON.toJSONString(obj));

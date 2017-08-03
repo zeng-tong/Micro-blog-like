@@ -18,5 +18,8 @@
     </settings>
 
     <!-- Continue going here -->
+<mappers>
+    <!--<mapper resource="Dao/WeiboDao.xml"/>-->
+</mappers>
 
 </configuration>

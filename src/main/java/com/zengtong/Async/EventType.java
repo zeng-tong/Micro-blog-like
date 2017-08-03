@@ -6,7 +6,8 @@ public enum EventType {
     LIKE(1),
     COMMENT(2),
     REGISTER(3),
-    MESSAGE(4);
+    MESSAGE(4),
+    FEEDCENTER(5);
 
     private int value;
 

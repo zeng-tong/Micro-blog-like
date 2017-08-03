@@ -1,27 +1,27 @@
 package com.zengtong.Utils;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Transaction;
-
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class Test{
 
-    private static Jedis jedis = new Jedis();
 
     public static void main(String[] args) {
 
-        Transaction transaction = new Jedis().multi();
+        Set<String> strings = new HashSet<>();
 
-        jedis.set("key","Test");
-        jedis.set("key","Test2");
-        jedis.set("key","Test3");
-        String  string = transaction.discard();
+        strings.add("aaa");
+        strings.add("bbb");
+        strings.add("ccc");
+        strings.add("ddd");
+        strings.add("eee");
 
-        List<Object> lists = transaction.exec();
+        for (String str : strings){
+            System.out.println(str);
+        }
 
-        for (Object list : lists)
-            System.out.println(list);
     }
+
+
 
 }

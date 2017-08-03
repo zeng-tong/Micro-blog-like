@@ -35,5 +35,14 @@ public interface CommentDao {
     @Update({"update ",TABLE_NAME,"set reply_count=reply_count-1 where id=#{id}"})
     void  minusCommentCount(int id);
 
+    @Update({"update ",TABLE_NAME," set like_count=like_count+1 where id = #{commentID}"})
+    void addLikeCount(int commentID);
+
+    @Update({"update ",TABLE_NAME,"set like_count=like_count-1 where id=#{id}"})
+    void  minusLikeCount(int id);
+
+
+
+
 
 }

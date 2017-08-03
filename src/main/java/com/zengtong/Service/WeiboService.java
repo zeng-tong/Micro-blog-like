@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zengtong.DAO.UserDao;
 import com.zengtong.DAO.WeiboDao;
+import com.zengtong.Utils.JedisAdaptor;
+import com.zengtong.Utils.RedisKeyUtil;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.User;
 import com.zengtong.model.Weibo;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static com.zengtong.Utils.Tool.splitPicName;
 
@@ -29,8 +32,10 @@ public class WeiboService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private JedisAdaptor jedisAdaptor;
 
-    public String UpWeibo(int user_id,String content, MultipartFile[] files){
+    public int UpWeibo(int user_id,String content, MultipartFile[] files){
 
         StringBuilder pic_url = new StringBuilder();
 
@@ -52,7 +57,70 @@ public class WeiboService {
 
         weiboDao.insertWeibo(weibo);
 
-        return pic_url.toString();
+
+        return weibo.getId();
+    }
+
+
+    public String getFeed(int loginID,int offset,int limit){
+
+        String key = RedisKeyUtil.getBizFollowlistKey(loginID);
+
+        Set<String> userIDs = jedisAdaptor.zrange(key,offset,limit);
+
+        JSONArray jsonArray = new JSONArray();
+
+        //如果关注列表为空，或者关注的人没有微博记录.
+
+        if (userIDs == null || userIDs.isEmpty()){
+
+            List<Weibo> list = weiboDao.selectByfavor(offset,limit);
+
+            for (Weibo weibo : list){
+
+                JSONObject json = new JSONObject();
+
+                json.put("Name: ",userDao.selectById(Integer.valueOf(weibo.getUserId())).getName());
+
+                json.put("CreateDate: ",weibo.getCreateDate());
+
+                json.put("content: ",weibo.getContent());
+
+                json.put("PicURL: ",weibo.getPicUrl());
+
+                json.put("LikeCount: ",weibo.getLikeCount());
+
+                jsonArray.add(json);
+
+            }
+
+            return jsonArray.toJSONString();
+
+        }
+
+        //
+
+        for (String userID : userIDs){
+
+            JSONObject json = new JSONObject();
+
+            Weibo weibo = weiboDao.selectWeiboById(Integer.valueOf(userID));
+
+            json.put("Name: ",userDao.selectById(Integer.valueOf(userID)).getName());
+
+            json.put("CreateDate: ",weibo.getCreateDate());
+
+            json.put("content: ",weibo.getContent());
+
+            json.put("PicURL: ",weibo.getPicUrl());
+
+            json.put("LikeCount: ",weibo.getLikeCount());
+
+
+            jsonArray.add(json);
+        }
+
+        return jsonArray.toJSONString();
     }
 
 

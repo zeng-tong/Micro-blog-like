@@ -1,5 +1,8 @@
 package com.zengtong.Controller;
 
+import com.zengtong.Async.EventModel;
+import com.zengtong.Async.EventProducer;
+import com.zengtong.Async.EventType;
 import com.zengtong.Service.WeiboService;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
@@ -24,6 +27,9 @@ public class WeiboController {
     @Autowired
     private HostHolder hostHolder;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @RequestMapping(value = "/weibo",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String UpWeibo(@RequestParam("content")String content,
@@ -42,9 +48,13 @@ public class WeiboController {
             return Tool.getJSONString(1,"文本内容不能为空");
         }
 
-        String url = weiboService.UpWeibo(hostHolder.getUser().getId(),content,files);
+        int WeiBoID = weiboService.UpWeibo(hostHolder.getUser().getId(),content,files);
 
-        return Tool.getJSONString(0,Tool.QINIUDOMIN + url);
+
+
+        eventProducer.fireEvent(new EventModel().setUser_id(hostHolder.getUser().getId()).setEntity_type(0).setEntity_id(WeiBoID).setEventType(EventType.FEEDCENTER));
+
+        return Tool.getJSONString(0,"WeiboID: " + String.valueOf(WeiBoID));
     }
 
     @RequestMapping(value = "/showWeibo")
@@ -62,6 +72,20 @@ public class WeiboController {
         if(res == null) return Tool.getJSONString(1,"没有该用户的记录");
 
         return Tool.getJSONString(0,res);
+
+    }
+
+    @RequestMapping(value = "/feedWeibo")
+    @ResponseBody
+    public String feedWeibo(){
+
+
+        if (hostHolder.getUser() == null){
+            return Tool.getJSONString(999,"用户未登录");
+        }
+
+       return weiboService.getFeed(hostHolder.getUser().getId(),0,10);
+
 
     }
 

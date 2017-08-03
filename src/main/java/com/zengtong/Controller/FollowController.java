@@ -37,7 +37,7 @@ public class FollowController {
         int myId = hostHolder.getUser().getId();
 
         if (followService.follow(myId,userId) == null){
-            return Tool.getJSONString(1,"您已经关注,不要重复关注.");
+            return Tool.getJSONString(1,"不要重复关注");
         }
 
         eventProducer.fireEvent(new EventModel().setEventType(EventType.MESSAGE).setTo_id(userId).setFrom_id(myId));

@@ -25,6 +25,8 @@ public class homeController {
     /*    model.addAttribute("name","ZengTong");
         model.addAttribute("user",new User("小哥",10,"pswd"));*/
 
+
+
         String name =  "NULL";
 
         if(hostHolder.getUser() != null){
@@ -32,6 +34,11 @@ public class homeController {
         }
 
         session.setAttribute("name",name);
+
+
+        System.out.println("This is controller");
+
+
 
         return "home";
 

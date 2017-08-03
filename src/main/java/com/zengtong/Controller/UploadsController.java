@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class NewsController {
+public class UploadsController {
 
     @Autowired
     private NewsService newsService;
