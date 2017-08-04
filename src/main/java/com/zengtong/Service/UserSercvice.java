@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -23,19 +22,18 @@ public class UserSercvice {
     @Autowired
     private TicketService ticketService;
 
-    public Map<String,Object> register(String Username, String Password,String email){
+
+
+    public boolean register(String Username, String Password,String email,Map<String ,Object> res){
 
         // to do 判断email是否合法
-
-        Map<String,Object> map = new HashMap<String ,Object>();
 
 
         User user = userDao.selectByName(Username);
 
-
         if(user != null){
-            map.put("error","Already exist Username");
-            return map;
+            res.put("error","Already exist Username");
+            return false;
         }
 
         String salt = UUID.randomUUID().toString().substring(0,5);
@@ -49,39 +47,43 @@ public class UserSercvice {
 
         userDao.addUser(user);
 
+        res.put("ticket",ticketService.addTicket(user.getId()));
 
-        map.put("user",user);
+        res.put("msg","注册成功");
 
-        return map;
+        return true;
     }
 
-    public Map<String,String> login(String Username,String password){
-        Map<String ,String> map = new HashMap<>();
+    public boolean login(String email,String password,Map<String ,Object> res){
 
-        if(StringUtils.isBlank(Username)){
-            map.put("error","Username is null");
-            return map;
+        if(StringUtils.isBlank(email)){
+            res.put("msg","Email is null");
+            return false;
         }
 
-        User user = userDao.selectByName(Username);
+        if (StringUtils.isBlank(password)) {
+            res.put("msg", "password is null");
+            return false;
+        }
+
+        User user = userDao.selectByEmail(email);
 
         String pwd = Tool.MD5(password + user.getSalt() );
 
         if(user.getPassword().equals(pwd)){
 
-//         Map<String,String> addTicket(int userId) ;
+            res.put("ticket",ticketService.addTicket(user.getId()));
+            res.put("userid", user.getId());
+            res.put("name", user.getName());
+            res.put("msg", "登录成功");
 
-            map = ticketService.addTicket(user.getId());
 
-
-
-
-            return map;
+            return true;
         }
 
-        map.put("error","Username or password not match.");
+        res.put("msg","Email or password not match.");
 
-        return map;
+        return false;
     }
 
 }

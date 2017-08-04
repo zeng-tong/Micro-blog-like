@@ -7,6 +7,7 @@ import com.zengtong.DAO.UserDao;
 import com.zengtong.DAO.WeiboDao;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.Comment;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,19 @@ public class CommentService {
 
     @Autowired
     private QiNiuService qiNiuService;
+
+
+    public int addComment(Comment comment){
+
+        if (StringUtils.isBlank(comment.getContent())) {
+            return 0;
+        }
+        switch (comment.getEntityType()){
+            case ENTITY_WEIBO : weiboDao.addCommentCount(comment.getEntityId()); break;
+            case ENTITY_COMMENT : commentDao.addCommentCount(comment.getEntityId());break;
+        }
+        return commentDao.addComment(comment);
+    }
 
 
     public String addComment(int entityType, int entityId, int userId,

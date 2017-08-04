@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.util.Map;
 
@@ -122,5 +124,42 @@ public class Tool {
 
     public static String getJSONString(Object obj){
         return JSON.toJSONString(obj);
+    }
+
+    public static String GetJSONString(boolean ret, Map<String, Object> res) {
+        JSONObject json = GetJSON(ret);
+        json.putAll(res);
+        return json.toJSONString();
+    }
+
+    public static String GetJSONString(boolean ret, String msg) {
+        JSONObject json = GetJSON(ret);
+        json.put("msg", msg);
+        return json.toJSONString();
+    }
+
+    public static String GetJSONString(boolean ret) {
+        JSONObject json = new JSONObject();
+        json.put("code", ret ? 0 : 1);
+        return json.toJSONString();
+    }
+
+    public static JSONObject GetJSON(boolean ret) {
+        JSONObject json = new JSONObject();
+        json.put("code", ret ? 0 : 1);
+        return json;
+    }
+
+    public static JSONObject GetJSON(boolean ret, Map<String, Object> res) {
+        JSONObject json = GetJSON(ret);
+        json.putAll(res);
+        return json;
+    }
+
+    public static void UpdateCookieTicket(HttpServletResponse response, String ticket, int maxAge) {
+        Cookie cookie = new Cookie("ticket", ticket);
+        cookie.setPath("/");
+        cookie.setMaxAge(maxAge);
+        response.addCookie(cookie);
     }
 }

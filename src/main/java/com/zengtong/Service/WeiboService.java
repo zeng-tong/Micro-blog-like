@@ -9,6 +9,7 @@ import com.zengtong.Utils.JedisAdaptor;
 import com.zengtong.Utils.RedisKeyUtil;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.Weibo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +35,10 @@ public class WeiboService {
 
     public int UpWeibo(int user_id,String content, MultipartFile[] files){
 
+        if (StringUtils.isBlank(content)){
+            return 0;
+        }
+
         StringBuilder pic_url = new StringBuilder();
 
         for(MultipartFile file : files){
@@ -53,7 +58,6 @@ public class WeiboService {
 
 
         weiboDao.insertWeibo(weibo);
-
 
         return weibo.getId();
     }
@@ -127,6 +131,11 @@ public class WeiboService {
         List<Weibo> weibos =  weiboDao.showWeiboByUserId(usrId,offset,count);
 
         if( weibos.isEmpty()) return null;
+
+        for (Weibo weibo : weibos){
+            String images = weibo.getPicUrl();
+            weibo.setPicUrl(Tool.QINIUDOMIN + images);
+        }
 
         return weibos;
 

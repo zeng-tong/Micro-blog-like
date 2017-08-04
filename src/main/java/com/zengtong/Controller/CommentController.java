@@ -21,7 +21,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping(value = "/comment",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/addComment",method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public String addComment(@RequestParam(value = "content")String content,
                              @RequestParam(value = "file",required = false)MultipartFile[]files,

@@ -43,7 +43,7 @@
             <div class="module-box publish-mod">
                 <div class="publish-hd">新鲜事来这发布</div>
                 <div class="publish-bd">
-                    <textarea placeholder="输入。。。"></textarea>
+                    <textarea placeholder="输入..."></textarea>
                     <div class="publish-oprt clearfix">
                         <div class="upload-img">
                             图片
@@ -65,7 +65,7 @@
                     <div class="post-detail">
                         <a class="post-name" th:href="'/profile/'+${wuser.id}" th:text="${wuser.name}" th:title="${wuser.name}" title="牛客112650号">牛客112650号</a>
                         <div class="post-legend">
-                            <span class="post-time" th:text="${weibo.createdDate}">发表于  今天 12:32:05</span>
+                            <span class="post-time" th:text="${weibo.createDate}">发表于  今天 12:32:05</span>
                         </div>
                         <div class="answer-brief">
                             <p th:text="${weibo.content}">XHTML2.0算是对XHTML1.0的XHTML2.0算是对XHTML1.0的升级吧!XHTML2.0算是对XHTML1.0的升级吧!XHTML2.0算是对XXHTML2.0算是对XHTML1.0的升级吧!HTML1.0的升级吧!升级吧!</p>

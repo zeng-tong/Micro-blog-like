@@ -33,11 +33,10 @@ public class TicketService {
         return map;
     }
 
-    public Map<String,String> addTicket(int userid) {
+    public String  addTicket(int userid) {
 
         Ticket ticket = new Ticket();
 
-        Map map = new HashMap<String, Object>();
 
         Date date = new Date();
         date.setTime(date.getTime() + 1000 * 3600 * 24); //  计算机中时间以毫秒存储,1000毫秒为1秒。所以设置的有效期为1天
@@ -48,8 +47,7 @@ public class TicketService {
         ticket.setExpired(date);
         ticketDao.addTicket(ticket);
 
-        map.put("ticket",ticket.getTicket());
-        return map;
+        return ticket.getTicket();
     }
 
 }

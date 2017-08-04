@@ -73,7 +73,7 @@ public class Weibo {
     }
 
     public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+        this.picUrl =  picUrl;
     }
 
     public Date getCreateDate() {

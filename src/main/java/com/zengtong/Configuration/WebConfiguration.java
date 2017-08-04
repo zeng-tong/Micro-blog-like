@@ -15,7 +15,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/login","/","/weibo","/comment","/deleteWeibo","/deleteComment","/addMessage","/showDetailMessage","/showListMessage","/like","/follow","/feedWeibo");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/login","/","/weibo","/comment","/deleteWeibo","/deleteComment",
+                "/addMessage","/showDetailMessage","/showListMessage",
+                "/like","/follow","/feedWeibo","/index",
+                "/listComments","/addComment","/followee/{uid}");
     }
 
 
