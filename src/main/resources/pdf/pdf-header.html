@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+            *{
+                margin: 0;padding: 0;
+            }
+        	p,ul,li,h1,h2,h3,h4,h5 {
+        		margin: 0;
+        		padding: 0;
+        	}
+        	li,ul {
+        		list-style: none;
+        	}
+        	a {
+        		color: #1abc9c;
+        	}
+        	a:hover,a:link {
+        		text-decoration: none;
+        	}
+        	.clearfix:after,
+			.clearfix:before{
+			    clear: both;
+			    content: " ";
+			    display: block;
+			}
+			.clearfix:after,
+			.clearfix:before {
+			    clear: both;
+			    content: ".";
+			    display: block;
+			    height: 0;
+			    visibility: hidden;
+			}
+			.clearfix {
+			    display: inline-block;
+			}
+			.clearfix {
+			    display: block;
+			}
+            .pdf-container {
+                width: 100%;
+            }
+            .pdf-header {
+                position: relative;
+            }
+            .pdf-nk-logo {
+                text-align: center;
+                height: 39px;
+                width: 220px;
+                display: inline-block;
+                margin: 0 3px;
+                outline: none;
+            }
+            .pdf-nk-logo img {
+                width: 60px;
+                float: left;
+                margin-top: 2px;
+            }
+            .head-border {
+                border-bottom: 4px solid #EA5117;
+                height: 35px;
+            }
+            .head-left-border {
+                overflow: hidden;
+            }
+            .head-right-border {
+                float: right;
+                width: 50px;
+                height: 35px;
+            }
+            .head-right-cont {
+                width: 276px;
+                float: right;
+            }
+            .weburl {
+                color: #ff6700;
+                margin-left: 65px;
+                margin-top: 10px;
+                font-size: 14px;
+                text-align: center;
+                /*letter-spacing: 2px;*/
+            }
+            .webtip {
+                margin-left: 65px;
+                color: #4e565e;
+                font-size: 10px;
+                white-space: nowrap;
+                -webkit-text-size-adjust:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="pdf-container">
+        	<div class="pdf-header clearfix">
+                <div class="head-right-cont clearfix">
+                    <div class="head-border head-right-border"></div>
+                    <a href="http://www.nowcoder.com/" class="pdf-nk-logo">
+                        <img src="./logo.png" />
+                        <div class="weburl">NOWCODER.COM</div>
+                        <div class="webtip">牛客网-中国最大IT笔试/面试题库</div>
+                    </a>
+                </div>
+                <div class="head-border head-left-border"></div>
+            </div>
+        </div>
+    </body>
+</html>

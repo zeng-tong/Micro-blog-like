@@ -1,0 +1,115 @@
+@import url('./reset.css');
+@import url('./layout.css');
+.btn {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0;
+    width: 80px;
+    color: #FFF;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none 0;
+    cursor: pointer;
+    line-height: normal;
+    outline: none;
+    white-space: nowrap;
+}
+.btn-primary {
+    background: #00BC9B;
+}
+.green-link {
+    color: #00BC9B;
+}
+
+/*输入框*/
+.control-group input[type="text"],
+.control-group input[type="password"],
+.control-group input[type="email"],
+textarea {
+  border: 1px solid #d4d4d4;
+  color: #34495e;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  padding: 8px 5px 7px;
+  width: 248px;
+  height: 22px;
+  border-radius: 3px;
+  outline: none;
+}
+.control-group.focus input[type="text"],
+.control-group.focus input[type="password"],
+.control-group.focus input[type="email"] {
+  border-color: #909090;
+}
+
+.control-group.error input[type="text"],
+.control-group.error input[type="password"],
+.control-group.error input[type="email"] {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.control-group.success input[type="text"],
+.control-group.success input[type="password"],
+.control-group.success input[type="email"] {
+  border-color: #2ecc71;
+  color: #2ecc71;
+}
+
+.form-group input[disabled] {
+  background-color: #e3e3e3;
+  border-color: #e3e3e3;
+  color: #999999;
+  cursor: default;
+}
+.form-group input[readonly] {
+  background-color: #fff;
+  border-color: #e3e3e3;
+  color: #999999;
+  cursor: default;
+}
+/*输入框组*/
+.form-group {
+    margin-bottom: 10px;
+}
+.form-group:after,
+.form-group:before {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.form-group .control-group {
+  float: left;
+}
+.form-group .btn-group {
+  width: 260px;
+  margin-bottom: 20px;
+}
+/* 提示文案默认隐藏 */
+.input-tip {
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 14px;
+}
+/* 错误提示文案 */
+.error .input-tip {
+    color: #ff5400;
+}
+
+.success .input-tip {
+    color: #25bb9b;
+
+}
+/*label*/
+.control-label {
+    padding: 0 15px;
+    font-size: 14px;
+    float: left;
+    width: 295px;
+    line-height: 42px;
+    height: 42px;
+    text-align: right;
+    margin-bottom: 0;
+}

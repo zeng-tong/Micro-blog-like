@@ -1,5 +1,7 @@
 package com.zengtong.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
 
 public class Weibo {
@@ -96,5 +98,12 @@ public class Weibo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String[] getImageList() {
+        if (StringUtils.isBlank(picUrl)) {
+            return new String [0];
+        }
+        return picUrl.split("\\|");
     }
 }

@@ -1,0 +1,250 @@
+@import url(../core/base.css);
+@import url(../core/popup.css);
+
+.publish-mod {
+    padding: 20px 30px;
+}
+.publish-hd {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3fb3d9;
+    margin-bottom: 10px;
+}
+.publish-bd textarea {
+    border: 1px solid #ddd;
+    width: 98%;
+    padding: 1%;
+    height: 120px;
+    line-height: 1.6;
+	resize: none;
+}
+.upload-img {
+    background: url(../../images/img/ico-detail.png) no-repeat;
+    float: left;
+    height: 20px;
+    padding-left: 30px;
+    position: relative;
+}
+.upload-img input {
+    opacity: 0.01;
+    position: absolute;
+    width: 50px;
+    left: 0;
+    top: 0;
+}
+.publish-oprt {
+    margin-top: 10px;
+}
+.publish-oprt .btn {
+    float: right;
+}
+.publish-image-list a {
+	display: block;
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 10px 10px 0 0;
+	overflow: hidden;
+	text-align: center;
+}
+.publish-image-list a img {
+	max-width: 100px;
+	max-height: 100px;
+}
+.answer-head {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #EDEDED;
+    overflow: hidden;
+    margin-right: 15px;
+    -webkit-border-radius: 25px;
+       -moz-border-radius: 25px;
+            border-radius: 25px;
+}
+.answer-head img {
+    width: 50px;
+    display: block;
+}
+
+.discuss-topic {
+    line-height: 1.5;
+    padding: 20px;
+    border-bottom: 1px solid #b7b7b7;
+}
+.post-detail {
+    margin-left: 70px;
+}
+.post-detail .post-name {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 6px;
+    color: #666;
+}
+.post-time {
+    color: #999;
+    font-size: 12px;
+}
+
+.answer-brief {
+    margin-top: 20px;
+}
+.answer-brief img {
+    max-width: 100%;
+}
+.answer-brief p {
+    margin-bottom: 10px;
+}
+
+.topic-oprt {
+    font-size: 14px;
+}
+.topic-oprt .item {
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px 0;
+    position: relative;
+}
+
+.topic-oprt .item + .item {
+    border-left: 1px solid #b7b7b7;
+}
+
+.item a:hover,
+.item .actived {
+    color: #25bb9b;
+}
+.ico-follow,
+.ico-reply,
+.ico-like {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+    background: url(../../images/img/ico-detail.png) no-repeat;
+}
+.ico-follow {
+    background-position: 0 -20px;
+}
+.item a:hover .ico-follow,
+.item .actived .ico-follow {
+    background-position: 0 -82px;
+}
+.ico-reply {
+    background-position: 0 -61px;
+}
+.item a:hover .ico-reply,
+.item .actived .ico-reply {
+    background-position: 0 -103px;
+}
+.ico-like {
+    background-position: 0 -41px;
+}
+.item a:hover .ico-like,
+.item .actived .ico-like {
+    background-position: 0 -126px;
+}
+
+.reply-box {
+    padding: 20px 50px;
+    background: #f4f4f4;
+    position: relative;
+}
+.reply-box:before {
+    position: absolute;
+    left: 50%;
+    top: -20px;
+    margin-left: -30px;
+    content: "";
+    border: 10px solid #f4f4f4;
+    border-color: transparent transparent #f4f4f4 transparent;
+}
+.reply-editbox {
+    position: relative;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.reply-write {
+    margin: 8px 100px 0 70px;
+}
+.reply-editbox .btn.reply-btn {
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    float: right;
+    margin-top: 10px;
+}
+.reply-input {
+    width: 690px;
+    height: 20px;
+    resize: none;
+}
+.reply-list {
+    margin-top: 15px;
+}
+.reply-list li {
+    padding: 10px 0;
+}
+.reply-list li + li {
+    border-top: 1px solid #ddd;
+}
+.reply-main {
+    margin-bottom: 10px;
+}
+.reply-person {
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.reply-content {
+    color: #666;
+    padding-top: 5px;
+    margin-left: 70px;
+
+}
+.answer-legend {
+    text-align: right;
+    margin-top: 10px;
+    color: #999;
+}
+.more-reply {
+    background: #e7e7e7;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.reply-box .btn {
+    display: block;
+    width: auto;
+}
+.arrow {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    width: 14px;
+    height: 10px;
+    background: url(../../images/img/ico-detail.png) -5px -157px no-repeat;
+}
+.more-reply:hover .arrow {
+    background-position: -5px -180px;
+}
+.loaded-more {
+    background: #25bb9b;
+    color: #fff;
+}
+.loaded-more .arrow {
+    background-position: -5px -202px;
+}
+.loaded-more:hover .arrow {
+    background-position: -5px -224px;
+}

@@ -23,12 +23,9 @@ public class LikeService {
 
         String key = RedisKeyUtil.getLikeKey(entityId,entityType);
 
-
-        String status = jedisAdaptor.get(RedisKeyUtil.checkLike(entityId,entityType,userId));
-
-
         //点过赞,status不为空,则取消点赞
-        if (status != null){
+        if ( isLiked(entityId,entityType,userId) ){
+
             jedisAdaptor.del(RedisKeyUtil.checkLike(entityId,entityType,userId));//恢复未点赞状态
 
             switch (entityType){
@@ -67,6 +64,16 @@ public class LikeService {
 
         return jedisAdaptor.incr(key);
 
+
+    }
+
+    public boolean isLiked(int entityId,int entityType,int userId){
+
+        String status = jedisAdaptor.get(RedisKeyUtil.checkLike(entityId,entityType,userId));
+
+        if (status != null ) return true;
+
+        return false;
 
     }
 

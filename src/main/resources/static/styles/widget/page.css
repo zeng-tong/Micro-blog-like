@@ -1,0 +1,63 @@
+/* 翻页 */
+.pagination {
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    margin: 20px 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: -4px;
+}
+.pagination li {
+    letter-spacing: 0;
+    margin-right: 5px;
+    vertical-align: top;
+    display: inline-block;
+    *zoom:1;
+    *display: inline;
+}
+.pagination li:last-child {
+  margin-right: 0;
+}
+.pagination ul li.active > a,
+.pagination ul li.active > span {
+  background: #00bc9b;
+  color: #FFF;
+}
+.pagination a,
+.ellipsis-pager {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #00bc9b;
+  color: #00bc9b;
+  background: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+.ellipsis-pager {
+    border: none;
+    font-size: 18px;
+}
+.pagination a:hover{
+    background: #00bc9b;
+    color: #FFF;
+}
+.pagination .txt-pager a{
+    width: auto;
+    padding: 0 10px;
+}
+.pagination .disabled a,
+.pagination .disabled a:hover {
+  color: #999;
+  border-color: #e1e1e1;
+  background: #FFF;
+  cursor: not-allowed;
+}
+.mini-pager.pagination a,
+.mini-pager .ellipsis-pager {
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+}

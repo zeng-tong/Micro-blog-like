@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-itunes-app" content="app-id=432274380">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="一个真实的网络问答社区，帮助你寻找答案，分享知识。">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>牛客 - 与世界分享你的知识、经验和见解</title>
+    <link rel="dns-prefetch" href="">
+    <link rel="stylesheet" th:href="@{/styles/pages/login.css}" href="../static/styles/pages/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header" th:replace="inc/header :: navigator">
+            <div class="header-main">
+                <a href="https://nowcoder.com/" class="header-logo">牛客微博</a>
+                <div role="search" class="header-search">
+                    <form method="GET" action="" class="header-search-form">
+                        <input type="text" class="header-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索你感兴趣的内容...">
+                        <button type="submit" class="header-search-button">
+                            <span class="header-search-font">搜索</span>
+                            <span class="header-search-icon"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="nav-wrap">
+                    <ul class="nav">
+                        <li>
+                            <a class="header-link" href="/loginPage">登录</a>
+                        </li>
+                        <li>
+                            <a class="header-link" href="/regPage">注册</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nk-main">
+            <div class="module-box">
+                <div class="module-head clearfix">
+                    <h1>账号注册</h1>
+                </div>
+                <div class="module-body">
+                    <div class="login-wrapper">
+                        <!--当错误时，class为control-group的div添加error,并添加i元素-->
+                        <div class="form-group">
+                            <label class="control-label">昵称</label>
+                            <div class="control-group js-name">
+                                <input type="text" placeholder="请输入昵称">
+                            </div>
+                        </div>
+                        <!--当正确时，class为control-group的div添加success,并添加i元素-->
+                        <div class="form-group">
+                            <label class="control-label">电子邮箱</label>
+                            <div class="control-group js-account">
+                                <input type="text" placeholder="电子邮箱">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">密码</label>
+                            <div class="control-group js-password">
+                                <input type="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">重复密码</label>
+                            <div class="control-group js-password-repeat">
+                                <input type="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-input-login">
+                                <a class="btn btn-primary btn-block js-submit" href="javascript:void(0);">注册</a>
+                                <p>已有微博，<a href="/loginPage" class="green-link">立即登录!</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="inc/script :: script"></div>
+    <script th:src="@{/javascripts/site/register.js}"></script>
+</body>
+</html>

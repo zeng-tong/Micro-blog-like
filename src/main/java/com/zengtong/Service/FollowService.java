@@ -20,13 +20,21 @@ public class FollowService {
 
     public String follow(int myId,int userId){
 
-        String key = RedisKeyUtil.getBizFollowlistKey(myId);
 
-        if (jedisAdaptor.zismember(key,String.valueOf(userId))) return null;
+        if ( isFollower(myId,userId)) return null;
 
         jedisAdaptor.followTransaction(myId,userId);
 
         return Tool.getJSONString(0,"关注成功.");
 
+    }
+
+    public boolean isFollower(int myID,int userID){
+
+        String key = RedisKeyUtil.getBizFollowlistKey(myID);
+
+        if (jedisAdaptor.zismember(key,String.valueOf(userID))) return true;
+
+        return false;
     }
 }

@@ -1,0 +1,45 @@
+@import url(../core/base.css);
+@import url(../core/popup.css);
+.login-wrapper {
+    padding: 80px 0 30px;
+}
+
+.txt-error-tip {
+    line-height: 14px;
+    font-size: 14px;
+    color: #ff5400;
+    display: none;
+}
+.about-pwd {
+    width: 590px;
+}
+.keep-pwd {
+    margin-left: 325px;
+    float: left;
+}
+.keep-pwd label{
+    font-size: 14px;
+    margin: 0;
+    color: #999;
+}
+.keep-pwd input {
+    width: auto;
+}
+.forget-pwd {
+    float: right;
+    color: #67cab2!important;
+    font-size: 14px;
+}
+.btn {
+    width: 110px;
+}
+.col-input-login {
+    text-align: center;
+    margin-top: 30px;
+}
+.col-input-login .btn {
+    width: 230px;
+}
+.col-input-login p {
+    margin-top: 10px;
+}

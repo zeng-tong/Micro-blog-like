@@ -1,0 +1,137 @@
+@import url(../core/base.css);
+@import url(../widget/page.css);
+@import url(../core/popup.css);
+.follow-wrap {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+}
+.follow-head {
+    overflow: hidden;
+    padding: 7px 14px;
+    border-bottom: 1px solid #eee;
+}
+.follow-user-name {
+    float: left;
+    font-size: 14px;
+    font-weight: 700;
+    color: #666;
+}
+.follow-list {
+    padding: 0 14px;
+}
+.follow-items .item {
+    padding: 12px 0;
+    position: relative;
+}
+.follow-items .item + .item {
+    border-top: 1px dotted #eee;
+}
+.return-homePage {
+    color: #25bb9b;
+    font-weight: 400;
+    float: right;
+}
+.return-homePage:hover {
+    text-decoration: underline;
+}
+
+.btn-cancel-wrap {
+    float: right;
+}
+.btn-cancel {
+    display: block;
+    text-align: center;
+    min-width: 78px;
+    font-size: 12px;
+    text-decoration: none!important;
+    padding: 1px;
+    font-weight: 400;
+    line-height: 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background: #eee;
+    color: #888;
+    border: 1px solid #ddd;
+}
+.btn-cancel:focus {
+    outline: none;
+}
+.btn-green {
+    width: auto;
+    _width: 78px;
+    min-width: 78px;
+    color: #eee!important;
+    text-shadow: 0 1px 0 rgba(255,255,255,.3);
+    background: #8ab923;
+    background: -webkit-linear-gradient(top,#25bb9b,#00B091);
+    background: linear-gradient(to bottom,#25bb9b,#00B091);
+    border: 1px solid #25bb9b;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 1px 0 rgba(0,0,0,.2);
+}
+.follow-user-pic {
+    float: left;
+}
+.follow-user-pic img {
+    float: left;
+    height: 50px;
+    margin: 2px 10px 0 0;
+    width: 50px;
+    border: 0 none;
+    border-radius: 2px;
+}
+.follow-user-info {
+    margin: 0 0 0 64px;
+}
+.follow-user-info h2 {
+    font-size: 14px;
+}
+.follow-user-info h2 a {
+    font-size: 14px;
+    color: #25bb9b;
+    font-weight: bold;
+}
+.follow-user-work {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+}
+.ctrl-follow-link {
+    font-size: 12px;
+    color: #999;
+}
+.btn-more-auto {
+    display: block;
+    font-size: 13px;
+    margin: 20px 0;
+    padding: 5px 1px;
+    color: #fff;
+    background: #25bb9b;
+    line-height: 1.7;
+    _display: inline!important;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+.btn-more-auto:hover {
+    background: #00B091;
+}
+.follow-content-inner {
+    position: relative;
+}
+.follow-section {
+    font-size: 14px;
+    color: #666;
+    font-weight: 700;
+    margin: 0 0 10px;
+    display: block;
+}
+.follow-icon {
+    background: url(../../images/img/icons.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}

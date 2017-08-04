@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-itunes-app" content="app-id=432274380">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="一个真实的网络问答社区，帮助你寻找答案，分享知识。">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>牛客 - 与世界分享你的知识、经验和见解</title>
+    <link rel="stylesheet" th:href="@{/styles/pages/detail.css}" href="../static/styles/pages/detail.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header" th:replace="inc/header :: navigator">
+            <div class="header-main">
+                <a href="https://nowcoder.com/" class="header-logo">牛客微博</a>
+                <div role="search" class="header-search">
+                    <form method="GET" action="" class="header-search-form">
+                        <input type="text" class="header-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索你感兴趣的内容...">
+                        <button type="submit" class="header-search-button">
+                            <span class="header-search-font">搜索</span>
+                            <span class="header-search-icon"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="nav-wrap">
+                    <ul class="nav">
+                        <li class="nav-noti">
+                            <a class="nav-link icon-msg" href="javascript:;">
+                                <span class="nav-count">90</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link icon-user" href="https://nowcoder.com/explore">姓名</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nk-main">
+        
+            <div class="module-box " th:replace="inc/detail :: weibos">
+                <div class="discuss-topic clearfix">
+                    <a href="/profile/112650" class="answer-head">
+                        <img src="http://static.nowcoder.com/head/434t.png" alt="牛客112650号头像">
+                    </a>
+                    <div class="post-detail">
+                        <a class="post-name" href="/profile/112650" title="牛客112650号">牛客112650号</a>
+                        <div class="post-legend">
+                            <span class="post-time">发表于  今天 12:32:05</span>
+                        </div>
+                        <div class="answer-brief">
+                            XHTML2.0算是对XHTML1.0的XHTML2.0算是对XHTML1.0的升级吧!XHTML2.0算是对XHTML1.0的升级吧!XHTML2.0算是对XXHTML2.0算是对XHTML1.0的升级吧!HTML1.0的升级吧!升级吧!
+                            <img src="https://uploadfiles.nowcoder.com/images/20170531/826546_1496200843212_6561B4BA7728BD6DA54471B00EA1F8C3" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="topic-oprt">
+                    <div class="item">
+                        <a href=""><i class="ico-follow"></i>关注</a>
+                    </div>
+                    <div class="item">
+                        <a href=""><i class="ico-reply"></i>11</a>
+                    </div>
+                    <div class="item">
+                        <a href=""><i class="ico-like"></i>23</a>
+                    </div>
+                </div>
+                <div class="reply-box">
+                    <div class="reply-editbox clearfix">
+                        <a href="/profile/112650" class="answer-head">
+                            <img src="http://static.nowcoder.com/head/434t.png" alt="牛客112650号头像">
+                        </a>
+                        <a class="btn btn-primary reply-btn" href="javascript:void(0);">回复</a>
+                        <div class="reply-write">
+                            <textarea placeholder="请输入你的观点" class="reply-input"></textarea>
+                        </div>
+                    </div>
+                    <ul class="reply-list">
+                        <li class="clearfix">
+                            <a href="/profile/112650" class="answer-head">
+                                <img src="http://static.nowcoder.com/head/434t.png" alt="牛客112650号头像">
+                            </a>
+                            <div class="reply-content">
+                                <div class="reply-person"><a href="/profile/985214" class="level-color-7">梦想家Dyh</a></div>
+                                <p>我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C++，让我怀疑他们是怎么在做iOS的。。</p>
+                            </div>
+                            <div class="answer-legend reply-info">
+                                <a href="javascript:void(0);"><i class="ico-like"></i>赞(0)</a>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <a href="/profile/112650" class="answer-head">
+                                <img src="http://static.nowcoder.com/head/434t.png" alt="牛客112650号头像">
+                            </a>
+                            <div class="reply-content">
+                                <div class="reply-person"><a href="/profile/985214" class="level-color-7">梦想家Dyh</a></div>
+                                <p>我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C我也有这种感觉。。之前去试的公司笔试面试全是C++，让我怀疑他们是怎么在做iOS的。。</p>
+                            </div>
+                            <div class="answer-legend reply-info">
+                                <a href="javascript:void(0);"><i class="ico-like"></i>赞(0)</a>
+                            </div>
+                        </li>
+                        <a class="more-reply">
+                            <span>更多评论</span>
+                            <i class="arrow"></i>
+                        </a>
+
+                        <a class="more-reply loaded-more">
+                            <span>更多评论</span>
+                            <i class="arrow"></i>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+			</div>
+		</div>
+    </div>
+    <div th:replace="inc/script :: script"></div>
+    <script th:src="@{/javascripts/util/upload.js}"></script>
+    <script th:src="@{/javascripts/util/comment.js}"></script>
+    <script th:src="@{/javascripts/site/index.js}"></script>
+</body>
+</html>

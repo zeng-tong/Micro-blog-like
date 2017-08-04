@@ -6,6 +6,7 @@ import com.zengtong.Async.EventType;
 import com.zengtong.Service.WeiboService;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
+import com.zengtong.model.Weibo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -61,7 +63,7 @@ public class WeiboController {
     @ResponseBody
     public String showWeibo(@RequestParam(value = "userId",defaultValue = "")String usrId){
 
-        String res;
+        List<Weibo> res;
 
         if (usrId.equals("")) {
             res = weiboService.ListAllWeibo(0, 10);
@@ -71,7 +73,7 @@ public class WeiboController {
 
         if(res == null) return Tool.getJSONString(1,"没有该用户的记录");
 
-        return Tool.getJSONString(0,res);
+        return Tool.getJSONString(0,res.toString());
 
     }
 

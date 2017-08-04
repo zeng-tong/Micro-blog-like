@@ -20,7 +20,7 @@ public class homeController {
     /**
      * thymleaf
      * */
-    @GetMapping(value = "/")
+    @RequestMapping(value = "/")
     public String home(HttpSession session){
     /*    model.addAttribute("name","ZengTong");
         model.addAttribute("user",new User("小哥",10,"pswd"));*/

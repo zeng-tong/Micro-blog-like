@@ -1,0 +1,276 @@
+@import url(../core/base.css);
+@import url(../widget/page.css);
+@import url(../core/popup.css);
+
+.letter-list-wrap .item {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 20px 10px;
+    margin: 0 10px;
+    position: relative;
+    cursor: pointer;
+}
+.letter-list-wrap .item:hover {
+    background: #ecf0f1;
+}
+
+.chat-headbox {
+    position: relative;
+    z-index: 2;
+    float: left;
+}
+.letter-detail {
+    font-size: 14px;
+    margin: 5px 100px 0 60px;
+}
+.letter-detail .letter-name {
+
+    z-index: 2;
+    display: inline-block;
+}
+
+.list-head {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: 1px solid #ededed;
+    border-radius: 50px;
+}
+.list-head img {
+    width: 100%;
+}
+.letter-brief {
+    z-index: 2;
+    color: #666;
+    font-size: 14px;
+}
+.letter-brief a {
+    color: #25bb9b;
+}
+.letter-brief a:hover,
+.letter-detail .letter-name:hover,
+.l-operate-bar a:hover {
+    text-decoration: underline;
+}
+.letter-brief a:hover {
+    color:#141719
+}
+.letter-info {
+    float: right;
+    text-align: right;
+    color: #999;
+    font-size: 12px;
+}
+.l-time {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    z-index: 2;
+    white-space: nowrap;
+    font-size: 12px;
+}
+.l-operate-bar {
+    white-space: nowrap;
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    font-size: 12px;
+    z-index: 2;
+}
+.l-operate-bar a {
+    color: #21a88b;
+}
+/*letterDetail*/
+/* tips提示浮层 */
+.tooltip {
+  position: absolute;
+  display: block;
+  line-height: 1.4;
+  visibility: visible;
+  font-size: 14px;
+  z-index: 99;
+}
+.tooltip.top {
+  padding: 5px 0 9px;
+  margin-top: -2px;
+}
+
+.tooltip.right {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+
+.tooltip.bottom {
+  padding: 8px 0 5px;
+  margin-top: 3px;
+}
+
+.tooltip.left {
+  padding: 0 5px;
+  margin-left: -3px;
+}
+.tooltip-inner {
+  color: #fff;
+  text-align: center;
+  background-color: #34495e;
+  line-height: 18px;
+  padding: 10px;
+  text-align: center;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  box-shadow: 0 0 5px #f0f0f0;
+}
+
+.tooltip-arrow,
+.tooltip-arrow i {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border:9px solid transparent;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #34495e;/* 带边框的颜色 */
+  border-width: 9px 9px 0;
+  bottom: 0;
+  margin-left: -9px;
+  left: 50%;
+}
+.tooltip.top .tooltip-arrow i {
+    top:-10px;
+    left:-9px;
+    border-top-color:#34495e;
+}
+.tooltip.right .tooltip-arrow {
+  border-right-color: #34495e;
+  border-width: 9px 9px 9px 0;
+  margin-top: -9px;
+  left: -4px;
+  top: 50%;
+}
+.tooltip.right .tooltip-arrow i {
+    top:-9px;
+    left:-8px;
+    border-right-color:#34495e;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #34495e;
+  border-width: 0 9px 9px;
+  margin-left: -9px;
+  top: -1px;
+  left: 50%;
+
+}
+.tooltip.bottom .tooltip-arrow i {
+    top:-8px;
+    left:-9px;
+    border-bottom-color:#34495e;
+}
+.tooltip.left .tooltip-arrow {
+  border-left-color: #34495e;
+  border-width: 9px 0 9px 9px;
+  margin-top: -9px;
+  right: -4px;
+  top: 50%;
+}
+.tooltip.left .tooltip-arrow i {
+    top:-9px;
+    right:-8px;
+    border-left-color:#34495e;
+}
+.letter-chatlist {
+    padding: 20px;
+    background: #fff;
+}
+.letter-chatlist li {
+    margin-bottom: 40px;
+    overflow: hidden;
+    list-style: none;
+}
+.letter-chatlist .list-head {
+    margin: 20px 20px 0 0;
+}
+
+.letter-chatlist .tooltip {
+    position: relative;
+    float: left;
+}
+.letter-chatlist .tooltip {
+    position: relative;
+    float: left;
+}
+.letter-chatlist .my-reply .tooltip.right,
+.letter-chatlist .tooltip.right {
+    padding: 0;
+    margin: 0;
+}
+.letter-chatlist .my-reply .tooltip.right,
+.letter-chatlist .tooltip.right {
+    padding: 0;
+    margin: 0;
+}
+.tooltip.right {
+    padding: 0 5px;
+    margin-left: 3px;
+}
+.tooltip.right .tooltip-arrow {
+    border-right-color: #34495e;
+    border-width: 9px 9px 9px 0;
+    margin-top: -9px;
+    left: -4px;
+    top: 50%;
+}
+.letter-chatlist .tooltip.right .tooltip-arrow {
+    border-right-color: #eee;
+    left: -9px;
+    margin-top: -30px;
+}
+.letter-chatlist .tooltip.right .tooltip-arrow {
+    border-right-color: #eee;
+    left: -9px;
+    margin-top: -30px;
+}
+.letter-chat {
+    background: #eee;
+    width: 600px;
+    max-width: 100%;
+    padding: 20px 25px;
+    text-align: left;
+    color: #666;
+}
+.letter-chat .letter-info {
+    width: 120px;
+}
+.letter-info p {
+    line-height: 2;
+}
+.letter-chat .chat-content {
+    width: 300px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+.chat-content a {
+    color: #25bb9b;
+}
+.my-reply .list-head {
+    float: right;
+    margin: 0 0 0 20px;
+}
+.letter-chatlist .my-reply .tooltip.right, .letter-chatlist .tooltip.right {
+    padding: 0;
+    margin: 0;
+}
+
+.my-reply .tooltip {
+    float: right;
+}
+.my-reply .tooltip.right .tooltip-arrow {
+    border-left-color: #ECF1F1;
+    border-width: 9px 0 9px 9px;
+    right: -9px;
+    left: auto;
+    margin-top: -30px;
+}
+/*letterDetail end*/

@@ -1,0 +1,133 @@
+/*pop*/
+.pop-layer {
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 998;
+}
+.pop-box {
+    position: absolute;
+    z-index: 999;
+    width: 550px;
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #888;
+    box-shadow: 0 0 80px 0 rgba(0,0,0,.4);
+    background: #fff;
+    text-align: left;
+    left: 50%;
+    top: 15%;
+    font-size: 13px;
+}
+.pop-head {
+    position: relative;
+    margin: -1px -1px 0;
+    padding: 10px 15px;
+    line-height: 14px;
+    background: #25bb9b;
+    background: -webkit-linear-gradient(top,#25bb9b,#00B091);
+    background: linear-gradient(to bottom,#25bb9b,#00B091);
+    border: 1px solid #00B091;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, 0 1px 1px rgba(0,0,0,.2);
+}
+.pop-tit {
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    font-size: 15px;
+    font-weight: 700;
+}
+.icon-close {
+    position: absolute;
+    top: 50%;
+    _top: 20px;
+    right: 3px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    text-indent: -9999px;
+    cursor: pointer;
+    background: url(../../images/img/icons.png) -60px -53px no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.pop-content {
+    padding: 0 15px;
+    margin: 17px 0;
+}
+.pop-form-wrap {
+    padding: 2px 2px 0;
+}
+.your-question {
+    margin: 0 0 15px;
+    position: relative;
+}
+.your-question-input {
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 15px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1) inset;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #222;
+}
+textarea:focus {
+    outline: none;
+}
+.your-question-input textarea {
+    color: #222;
+    overflow: hidden;
+    line-height: 22px;
+    font-size: 13px;
+    padding: 0!important;
+    margin: 0!important;
+    border: 0 none;
+    vertical-align: bottom;
+    min-height: 1em;
+    width: 100%;
+    resize : none;
+}
+.remark-head {
+    margin-bottom: 5px;
+}
+.remark-wrap {
+    margin: 8px 0 5px;
+    position: relative;
+}
+.editor-field-wrap {
+    overflow-y: auto;
+    max-height: 192px;
+    border-radius: 4px;
+    position: relative;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.1) inset;
+    -webkit-transition: min-height .25s ease-out;
+    background: #fff;
+}
+.editor-field-element {
+    min-height: 66px;
+}
+.editor-field-element:focus {
+    outline: none;
+}
+.remark-tips {
+    font-style: normal;
+    color: #999;
+}
+.pop-submit-wrap {
+    padding: 20px 0 0;
+    text-align: right;
+}
+
+.pop-tag-err {
+    margin-left: 10px;
+    float: left;
+    line-height: 30px;
+    font-size: 13px;
+    color: #c33;
+}

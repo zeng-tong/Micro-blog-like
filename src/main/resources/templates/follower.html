@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-itunes-app" content="app-id=432274380">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="一个真实的网络问答社区，帮助你寻找答案，分享知识。">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>牛客 - 与世界分享你的知识、经验和见解</title>
+    <link rel="dns-prefetch" href="">
+    <link rel="stylesheet" th:href="@{/styles/pages/follow.css}" href="../static/styles/pages/follow.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header" th:replace="inc/header :: navigator">
+            <div class="header-main">
+                <a href="https://nowcoder.com/" class="header-logo">牛客微博</a>
+                <div role="search" class="header-search">
+                    <form method="GET" action="" class="header-search-form">
+                        <input type="text" class="header-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索你感兴趣的内容...">
+                        <button type="submit" class="header-search-button">
+                            <span class="header-search-font">搜索</span>
+                            <span class="header-search-icon"></span>
+                        </button>
+                    </form>
+                </div>
+                <a href="" class="header-link">发现</a>
+                <div class="nav-wrap">
+                    <!-- <ul class="nav">
+                        <li class="nav-noti">
+                            <a class="nav-link icon-msg" href="javascript:;">
+                                <span class="nav-count">90</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link icon-user" href="https://nowcoder.com/explore">姓名</a>
+                        </li>
+
+                    </ul> -->
+                    <ul class="nav">
+                        <li>
+                            <a class="header-link" href="javascript:;">
+                                登录
+                            </a>
+                        </li>
+                        <li>
+                            <a class="header-link" href="javascript:;">
+                                注册
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="nk-main">
+            <div class="follow-wrap">
+                <div class="follow-head clearfix">
+                    <span class="follow-user-name">
+                        <a href="/people/zjuyxy" th:text="|${hostname}有粉丝${followerCount}人|">叶向宇粉丝70人</a>
+                    </span>
+                    <a class="return-homePage" href="/people/zjuyxy">返回个人主页</a>
+                </div>
+                <div class="follow-list">
+                    <div class="follow-list-wrap">
+                        <div class="follow-items" th:remove="all-but-first">
+                            <div class="item js-item"
+                                 th:each="vo : ${vos}"
+                                 th:attr="data-user-id=${vo.userid},data-followed=${vo.followed ? 1 : 0}">
+                                <div th:if="${vo.followed}" class="btn-cancel-wrap">
+                                    <button class="btn-cancel js-follow">取消关注</button>
+                                </div>
+                                <div th:if="not ${vo.followed}" class="btn-cancel-wrap">
+                                    <button class="btn-cancel btn-green js-follow">关注他</button>
+                                </div>
+                                <a title="Barty" class="follow-user-pic" th:href="|/profile/${vo.userid}|">
+                                    <img th:src="${vo.userhead}" src="https://pic2.zhimg.com/3bc6c4dbf50dbce5fa27174f23404849_m.jpg" class="zm-item-img-avatar">
+                                </a>
+                                <div class="follow-user-info">
+                                    <h2><a th:href="|/profile/${vo.userid}|" title="Barty" th:text="${vo.username}">Barty</a></h2>
+                                    <div class="follow-user-work">牛客网教研首席打杂</div>
+                                    <div class="details zg-gray">
+                                        <a target="_blank" href="/people/buaabarty/followers" class="ctrl-follow-link">462 关注者</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/asks" class="ctrl-follow-link">0 提问</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/answers" class="ctrl-follow-link">21 回答</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty" class="ctrl-follow-link">548 赞同</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="btn-cancel-wrap">
+                                    <button class="btn-cancel">取消关注</button>
+                                </div>
+                                <a title="Barty" class="follow-user-pic" href="/people/buaabarty">
+                                    <img src="https://pic2.zhimg.com/3bc6c4dbf50dbce5fa27174f23404849_m.jpg" class="zm-item-img-avatar">
+                                </a>
+                                <div class="follow-user-info">
+                                    <h2><a href="https://www.nowcoder.com/people/buaabarty" title="Barty">Barty</a></h2>
+                                    <div class="follow-user-work">牛客网教研首席打杂</div>
+                                    <div class="details zg-gray">
+                                        <a target="_blank" href="/people/buaabarty/followers" class="ctrl-follow-link">462 关注者</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/asks" class="ctrl-follow-link">0 提问</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/answers" class="ctrl-follow-link">21 回答</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty" class="ctrl-follow-link">548 赞同</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="btn-cancel-wrap">
+                                    <button class="btn-cancel">取消关注</button>
+                                </div>
+                                <a title="Barty" class="follow-user-pic" href="/people/buaabarty">
+                                    <img src="https://pic2.zhimg.com/3bc6c4dbf50dbce5fa27174f23404849_m.jpg" class="zm-item-img-avatar">
+                                </a>
+                                <div class="follow-user-info">
+                                    <h2><a href="https://www.nowcoder.com/people/buaabarty" title="Barty">Barty</a></h2>
+                                    <div class="follow-user-work">牛客网教研首席打杂</div>
+                                    <div class="details zg-gray">
+                                        <a target="_blank" href="/people/buaabarty/followers" class="ctrl-follow-link">462 关注者</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/asks" class="ctrl-follow-link">0 提问</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/answers" class="ctrl-follow-link">21 回答</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty" class="ctrl-follow-link">548 赞同</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="btn-cancel-wrap">
+                                    <button class="btn-cancel">取消关注</button>
+                                </div>
+                                <a title="Barty" class="follow-user-pic" href="/people/buaabarty">
+                                    <img src="https://pic2.zhimg.com/3bc6c4dbf50dbce5fa27174f23404849_m.jpg" class="zm-item-img-avatar">
+                                </a>
+                                <div class="follow-user-info">
+                                    <h2><a href="https://www.nowcoder.com/people/buaabarty" title="Barty">Barty</a></h2>
+                                    <div class="follow-user-work">牛客网教研首席打杂</div>
+                                    <div class="details zg-gray">
+                                        <a target="_blank" href="/people/buaabarty/followers" class="ctrl-follow-link">462 关注者</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/asks" class="ctrl-follow-link">0 提问</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/answers" class="ctrl-follow-link">21 回答</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty" class="ctrl-follow-link">548 赞同</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="btn-cancel-wrap">
+                                    <button class="btn-cancel btn-green">关注他</button>
+                                </div>
+                                <a title="Barty" class="follow-user-pic" href="/people/buaabarty">
+                                    <img src="https://pic2.zhimg.com/3bc6c4dbf50dbce5fa27174f23404849_m.jpg" class="zm-item-img-avatar">
+                                </a>
+                                <div class="follow-user-info">
+                                    <h2><a href="https://www.nowcoder.com/people/buaabarty" title="Barty">Barty</a></h2>
+                                    <div class="follow-user-work">牛客网教研首席打杂</div>
+                                    <div class="details zg-gray">
+                                        <a target="_blank" href="/people/buaabarty/followers" class="ctrl-follow-link">462 关注者</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/asks" class="ctrl-follow-link">0 提问</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty/answers" class="ctrl-follow-link">21 回答</a>
+                                        /
+                                        <a target="_blank" href="/people/buaabarty" class="ctrl-follow-link">548 赞同</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" class="btn-more-auto btn-white">更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <ul data-total="12">
+                <li class="txt-pager disabled js-first-pager"><a data-page="1" href="javascript:void(0)">首页</a></li>
+                <li class="txt-pager disabled js-pre-pager"><a data-page="1" href="javascript:void(0)">上一页</a></li>
+                <li class="active js-1-pager"><a href="javascript:void(0)" data-page="1">1</a></li>
+                <li class="js-2-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=2" data-page="2">2</a></li>
+                <li class="js-3-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=3" data-page="3">3</a></li>
+                <li class="js-4-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=4" data-page="4">4</a></li>
+                <li class="js-5-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=5" data-page="5">5</a></li>
+                <li class="js-6-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=6" data-page="6">6</a></li>
+                <li class="js-7-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=7" data-page="7">7</a></li>
+                <li class="js-8-pager"><a href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=8" data-page="8">8</a></li>
+                <li class="txt-pager js-next-pager"><a data-page="2" href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=2">下一页</a></li>
+                <li class="txt-pager js-last-pager"><a data-page="12" href="/sns/message/622873/msg-list?onlyUnRead=false&amp;updateRead=1&amp;conversationId=10001_622873&amp;page=12">末页</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="inc/script :: script"></div>
+    <script th:src="@{/javascripts/site/follow.js}"></script>
+</body>
+</html>
