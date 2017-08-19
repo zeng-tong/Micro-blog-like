@@ -1,4 +1,4 @@
-#Micro-blog-like site
+# Micro-blog-like site
 - 数据库交互iBatis集成
 - 用户注册登陆管理
 - 资讯发布，图片上传,资讯首页Feed流
