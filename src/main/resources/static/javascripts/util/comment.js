@@ -53,7 +53,7 @@
             bLock = true;
             nc.util.ajax({
                 url: '/addComment',
-                data: {content: sContent, entityType: 1, entityId: that.id},
+                data: {content: sContent, entityType: 0, entityId: that.id}, // weibo_comment 0, comment_comment 1
                 call: function () {
                     oElMap.textarea.val('');
                     that.count++;
@@ -144,7 +144,7 @@
         var nOffset = oConf.offset || 0;
         nc.util.ajax({
             url: '/listComments',
-            data: {entityType: 1, entityId: that.id, offset: nOffset, count: nCount},
+            data: {entityType: 0, entityId: that.id, offset: nOffset, count: nCount}, //
             call: function (oResult) {
                 var aItem = oResult.comments || [];
                 var bHasNext = aItem.length >= nCount;

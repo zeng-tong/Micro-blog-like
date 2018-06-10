@@ -20,9 +20,9 @@ import java.util.List;
 public class CommentService {
 
 
-    private static final int ENTITY_WEIBO = 0;
+    private static final int WEIBO_COMMENT = 0;
 
-    private static final int ENTITY_COMMENT = 1;
+    private static final int COMMENT_COMMENT = 1;
 
     @Autowired
     private CommentDao commentDao;
@@ -41,14 +41,15 @@ public class CommentService {
             return 0;
         }
         int addedCount = commentDao.addComment(comment);
+        System.out.println("addedCount: " + addedCount);
         if (addedCount == 0) {
             return addedCount;
         } else {
             switch (comment.getEntityType()) {
-                case ENTITY_WEIBO:
+                case WEIBO_COMMENT:
                     weiboDao.addCommentCount(comment.getEntityId());
                     break;
-                case ENTITY_COMMENT:
+                case COMMENT_COMMENT:
                     commentDao.addCommentCount(comment.getEntityId());
                     break;
             }
@@ -88,10 +89,10 @@ public class CommentService {
         commentDao.addComment(comment);
 
         switch (entityType) {
-            case ENTITY_WEIBO:
+            case WEIBO_COMMENT:
                 weiboDao.addCommentCount(entityId);
                 break;
-            case ENTITY_COMMENT:
+            case COMMENT_COMMENT:
                 commentDao.addCommentCount(entityId);
                 break;
         }
@@ -148,10 +149,10 @@ public class CommentService {
         } else if (userId == comment.getUserId()) {
 
             switch (comment.getEntityType()) {
-                case ENTITY_WEIBO:
+                case WEIBO_COMMENT:
                     weiboDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
                     break;
-                case ENTITY_COMMENT:
+                case COMMENT_COMMENT:
                     commentDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
             }
             commentDao.deleteComment(commentId);
