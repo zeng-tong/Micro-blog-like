@@ -205,24 +205,6 @@ public class homeController {
         return vos;
     }
 
-    @RequestMapping(path = {"/follow"}, method = {RequestMethod.POST})
-    @ResponseBody
-    public String follow(@RequestParam("userId") int userId) {
-        if (hostHolder.getUser() == null) {
-            return Tool.GetJSONString(false, "未登陆");
-        }
-
-        try {
-            long followCount = followService.follow(hostHolder.getUser().getId(), EntityType.USER.getValue(), userId);
-            JSONObject ret = Tool.GetJSON(true);
-            ret.put("count", followCount);
-            return ret.toJSONString();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return Tool.GetJSONString(false, "关注异常");
-        }
-    }
-
 
     @RequestMapping(path = {"/weibo"}, method = {RequestMethod.POST})
     @ResponseBody

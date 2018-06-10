@@ -2,7 +2,6 @@ package com.zengtong.Controller;
 
 import com.zengtong.Service.FollowService;
 import com.zengtong.Utils.JedisAdaptor;
-import com.zengtong.Utils.RedisKeyUtil;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.EntityType;
 import com.zengtong.model.HostHolder;
@@ -36,14 +35,7 @@ public class FollowController {
 
         int myId = hostHolder.getUser().getId();
 
-        String key = RedisKeyUtil.getBizFollowlistKey(myId);
-
-        if (jedisAdaptor.zismember(key,String.valueOf(userId))){
-            return Tool.getJSONString(1,"不要重复关注");
-        }
-
         followService.follow(myId, EntityType.USER.getValue(),userId);
-
 
 
         return Tool.getJSONString(0,"关注成功");

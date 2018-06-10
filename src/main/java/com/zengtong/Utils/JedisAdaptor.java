@@ -402,26 +402,19 @@ public class JedisAdaptor implements InitializingBean {
 
     public void followTransaction(int userID,int entityType,int entityID){
 
-        Jedis jedis = null;
-
-        try {
-
-            jedis = pool.getResource();
+        try (Jedis jedis = pool.getResource()) {
 
             Transaction transaction = new Jedis().multi();
 
             String key = RedisKeyUtil.getBizFollowlistKey(userID);
             //关注列表里加上user
-            jedis.zadd(key,new Date().getTime(),String .valueOf(entityID));
+            jedis.zadd(key, new Date().getTime(), String.valueOf(entityID));
 
-            jedis.zadd(RedisKeyUtil.getBizFanslistKey(entityID),new Date().getTime(),String .valueOf(userID));
+            jedis.zadd(RedisKeyUtil.getBizFanslistKey(entityID), new Date().getTime(), String.valueOf(userID));
             transaction.exec();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.info("发生异常: " + e.getMessage());
-        }finally {
-            if (jedis != null)
-                jedis.close();
         }
 
     }

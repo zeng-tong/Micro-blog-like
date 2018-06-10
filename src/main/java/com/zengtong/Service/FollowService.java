@@ -25,6 +25,9 @@ public class FollowService {
 
     public long follow(int myId,int entityType ,int entityID){
 
+        if (isFollower(myId, entityID)){
+            return getFollowerCount(entityType, entityID);
+        }
 
         jedisAdaptor.followTransaction(myId,entityType,entityID);
 
