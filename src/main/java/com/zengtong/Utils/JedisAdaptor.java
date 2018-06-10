@@ -43,6 +43,41 @@ public class JedisAdaptor implements InitializingBean {
         }
     }
 
+    public Long zremove(String key,String member){
+        Jedis jedis = null;
+
+        try {
+            jedis = pool.getResource();
+
+            return jedis.zrem(key,member);
+
+        }catch (Exception e){
+            logger.error("发生异常" + e.getMessage());
+            return null;
+        }finally {
+            if (jedis != null){
+                jedis.close();
+            }
+        }
+    }
+
+    public Double zscore(String key,String member){
+        Jedis jedis = null;
+
+        try {
+            jedis = pool.getResource();
+
+            return jedis.zscore(key,member);
+        }catch (Exception e){
+            logger.error("发生异常" + e.getMessage());
+            return null;
+        }finally {
+            if (jedis != null){
+                jedis.close();
+            }
+        }
+    }
+
     public Set<String> zrevrange(String key, int start, int end) {
         Jedis jedis = null;
         try {
@@ -107,6 +142,56 @@ public class JedisAdaptor implements InitializingBean {
         }catch (Exception e){
             logger.info("发生异常 " + e.getMessage());
             return 0;
+        }finally {
+
+            if(jedis != null){
+                jedis.close();
+            }
+
+        }
+    }
+    public Double cancelLike(String key,String member){
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+
+            Double likeCount = jedis.zscore(key,member);
+
+            jedis.zadd(key,likeCount-1,member);
+
+            jedis.zrem(key,member);
+
+            return likeCount - 1;
+        }catch (Exception e){
+            logger.info("发生异常 " + e.getMessage());
+            return null;
+        }finally {
+
+            if(jedis != null){
+                jedis.close();
+            }
+
+        }
+    }
+
+
+    public Double Like(String key,String member){
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+
+            Double likeCounts = jedis.zscore(key,member);
+
+            if (likeCounts == null) jedis.zadd(key,1,member);
+
+            else jedis.zadd(key, likeCounts + 1, member);
+
+            return jedis.zscore(key,member);
+        }catch (Exception e){
+            logger.info("发生异常 " + e.getMessage());
+            return null;
         }finally {
 
             if(jedis != null){
@@ -240,8 +325,11 @@ public class JedisAdaptor implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
+
             Long statu = jedis.zrank(key,value);
+
             if (statu == null) return false;
+
             return true;
         }catch (Exception e){
             logger.info("发生异常" + e.getMessage());
@@ -268,6 +356,8 @@ public class JedisAdaptor implements InitializingBean {
             }
         }
     }
+
+
 
     public long zadd(String key,double score,String value){
 
@@ -310,7 +400,7 @@ public class JedisAdaptor implements InitializingBean {
         }
     }
 
-    public void followTransaction(int currentId,int userId){
+    public void followTransaction(int userID,int entityType,int entityID){
 
         Jedis jedis = null;
 
@@ -320,11 +410,11 @@ public class JedisAdaptor implements InitializingBean {
 
             Transaction transaction = new Jedis().multi();
 
-            String key = RedisKeyUtil.getBizFollowlistKey(currentId);
+            String key = RedisKeyUtil.getBizFollowlistKey(userID);
             //关注列表里加上user
-            jedis.zadd(key,new Date().getTime(),String .valueOf(userId));
-            jedis.zadd(RedisKeyUtil.getBizFanslistKey(userId),new Date().getTime(),String .valueOf(currentId));
+            jedis.zadd(key,new Date().getTime(),String .valueOf(entityID));
 
+            jedis.zadd(RedisKeyUtil.getBizFanslistKey(entityID),new Date().getTime(),String .valueOf(userID));
             transaction.exec();
 
         }catch (Exception e){

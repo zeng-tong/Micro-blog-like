@@ -32,34 +32,43 @@ public class CommentService {
 
 
     @Autowired
-    private QiNiuService qiNiuService;
+    private ImageService imageService;
 
 
-    public int addComment(Comment comment){
+    public int addComment(Comment comment) {
 
         if (StringUtils.isBlank(comment.getContent())) {
             return 0;
         }
-        switch (comment.getEntityType()){
-            case ENTITY_WEIBO : weiboDao.addCommentCount(comment.getEntityId()); break;
-            case ENTITY_COMMENT : commentDao.addCommentCount(comment.getEntityId());break;
+        int addedCount = commentDao.addComment(comment);
+        if (addedCount == 0) {
+            return addedCount;
+        } else {
+            switch (comment.getEntityType()) {
+                case ENTITY_WEIBO:
+                    weiboDao.addCommentCount(comment.getEntityId());
+                    break;
+                case ENTITY_COMMENT:
+                    commentDao.addCommentCount(comment.getEntityId());
+                    break;
+            }
         }
-        return commentDao.addComment(comment);
+        return addedCount;
     }
 
 
     public String addComment(int entityType, int entityId, int userId,
-                             MultipartFile[] files,String content){
+                             MultipartFile[] files, String content) {
         /*
-        * entityType : 0,微博评论 ; 1,评论的评论
-        * */
+         * entityType : 0,微博评论 ; 1,评论的评论
+         * */
         String picUrl = null;
 
-        if(files != null) {
+        if (files != null) {
 
-            for(MultipartFile file : files){
+            for (MultipartFile file : files) {
 
-                picUrl = qiNiuService.upToCloud(file) + "|";
+                picUrl = imageService.upToCloud(file) + "|";
 
             }
         }
@@ -78,43 +87,46 @@ public class CommentService {
 
         commentDao.addComment(comment);
 
-        switch (entityType){
-            case ENTITY_WEIBO : weiboDao.addCommentCount(entityId); break;
-            case ENTITY_COMMENT : commentDao.addCommentCount(entityId);break;
+        switch (entityType) {
+            case ENTITY_WEIBO:
+                weiboDao.addCommentCount(entityId);
+                break;
+            case ENTITY_COMMENT:
+                commentDao.addCommentCount(entityId);
+                break;
         }
-        return Tool.getJSONString(0,"评论成功");
+        return Tool.getJSONString(0, "评论成功");
     }
 
     @Autowired
     private UserDao userDao;
 
-    public String  showComment(int entityType,int entityId,int offset,int count){
+    public String showComment(int entityType, int entityId, int offset, int count) {
 
 
         JSONArray jsonArray = new JSONArray();
 
 
-        List<Comment> comments = commentDao.showComment(entityType,entityId,offset,count);
+        List<Comment> comments = commentDao.showComment(entityType, entityId, offset, count);
 
-        if(comments.isEmpty()){
+        if (comments.isEmpty()) {
             return null;
-        }
-        else{
-            for(Comment comment : comments){
+        } else {
+            for (Comment comment : comments) {
 
                 JSONObject json = new JSONObject();
 
                 String username = userDao.selectById(comment.getUserId()).getName();
 
-                json.put("NickName",username);
+                json.put("NickName", username);
 
-                json.put("createDate",comment.getCreateDate());
+                json.put("createDate", comment.getCreateDate());
 
-                json.put("content",comment.getContent());
+                json.put("content", comment.getContent());
 
-                json.put("picUrl",Tool.splitPicName(comment.getPicUrl()));
+                json.put("picUrl", Tool.splitPicName(comment.getPicUrl()));
 
-                json.put("likeCount",comment.getLikeCount());
+                json.put("likeCount", comment.getLikeCount());
 
 //                comment.getReplyCount()
                 jsonArray.add(json);
@@ -127,23 +139,25 @@ public class CommentService {
     }
 
 
-    public String deleteComment(int commentId,int userId){
+    public String deleteComment(int commentId, int userId) {
 
         Comment comment = commentDao.selectCommentById(commentId);
 
-        if(comment == null ){
-            return Tool.getJSONString(1,"没有评论");
-        }
-        else if( userId == comment.getUserId()){
+        if (comment == null) {
+            return Tool.getJSONString(1, "没有评论");
+        } else if (userId == comment.getUserId()) {
 
-            switch (comment.getEntityType()){
-                case ENTITY_WEIBO : weiboDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId()); break;
-                case ENTITY_COMMENT : commentDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
+            switch (comment.getEntityType()) {
+                case ENTITY_WEIBO:
+                    weiboDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
+                    break;
+                case ENTITY_COMMENT:
+                    commentDao.minusCommentCount(commentDao.selectCommentById(commentId).getEntityId());
             }
             commentDao.deleteComment(commentId);
-            return Tool.getJSONString(0,"删除成功");
+            return Tool.getJSONString(0, "删除成功");
         }
 
-        return Tool.getJSONString(1,"怎么能让你删除别人的评论呢?!");
+        return Tool.getJSONString(1, "怎么能让你删除别人的评论呢?!");
     }
 }

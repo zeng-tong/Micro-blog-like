@@ -1,7 +1,6 @@
 package com.zengtong.Controller;
 
-import com.zengtong.Service.NewsService;
-import com.zengtong.Service.QiNiuService;
+import com.zengtong.Service.ImageService;
 import com.zengtong.Utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +18,10 @@ import java.util.Map;
 @Controller
 public class UploadsController {
 
-    @Autowired
-    private NewsService newsService;
+
 
     @Autowired
-    private QiNiuService qiNiuService;
+    private ImageService imageService;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -32,7 +30,7 @@ public class UploadsController {
 
         for(MultipartFile file:files){
 
-            String url = newsService.uploadImage(file);
+            String url = imageService.saveImageLocal(file);
 
             if(url == null){
 
@@ -54,7 +52,7 @@ public class UploadsController {
 
         for(MultipartFile file:files){
 
-            String filename = qiNiuService.upToCloud(file);
+            String filename = imageService.upToCloud(file);
 
             if(filename == null){
 
@@ -78,7 +76,7 @@ public class UploadsController {
 
         try {
 
-            String statu = newsService.getImage(name,response);
+            String statu = imageService.getImageLocal(name,response);
 
             if(statu == null){
                 map.put("error","图片下载失败");

@@ -106,4 +106,5 @@ public class Weibo {
         }
         return picUrl.split("\\|");
     }
+
 }

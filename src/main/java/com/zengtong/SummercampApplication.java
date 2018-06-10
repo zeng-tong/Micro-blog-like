@@ -9,4 +9,6 @@ public class SummercampApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SummercampApplication.class, args);
 	}
+
+
 }

@@ -12,9 +12,9 @@ import com.zengtong.model.Weibo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +25,7 @@ public class WeiboService {
     private WeiboDao weiboDao;
 
     @Autowired
-    private QiNiuService qiNiuService;
+    private ImageService imageService;
 
     @Autowired
     private UserDao userDao;
@@ -33,18 +33,10 @@ public class WeiboService {
     @Autowired
     private JedisAdaptor jedisAdaptor;
 
-    public int UpWeibo(int user_id,String content, MultipartFile[] files){
+    public int UpWeibo(int user_id,String content, String images){
 
         if (StringUtils.isBlank(content)){
             return 0;
-        }
-
-        StringBuilder pic_url = new StringBuilder();
-
-        for(MultipartFile file : files){
-
-           pic_url.append(qiNiuService.upToCloud(file) + "|");
-
         }
 
         Weibo weibo = new Weibo();
@@ -53,7 +45,7 @@ public class WeiboService {
         weibo.setLikeCount(0);
         weibo.setUserId(user_id);
         weibo.setCreateDate(new Date());
-        weibo.setPicUrl(pic_url.toString());
+        weibo.setPicUrl(images);
         weibo.setContent(content);
 
 
@@ -63,7 +55,7 @@ public class WeiboService {
     }
 
 
-    public String getFeed(int loginID,int offset,int limit){
+    public String getFeedAsString(int loginID,int offset,int limit){
 
         String key = RedisKeyUtil.getBizFollowlistKey(loginID);
 
@@ -126,18 +118,43 @@ public class WeiboService {
 
 
 
+    public List<Weibo> getFeed(int loginID,int offset,int limit){
+
+        String key = RedisKeyUtil.getBizFollowlistKey(loginID);
+
+        Set<String> userIDs = jedisAdaptor.zrange(key,offset,limit);
+
+        List<Weibo> list = new LinkedList<>();
+
+        for (String userID : userIDs){
+            list.add(weiboDao.selectOneByUserID(Integer.valueOf(userID)));
+        }
+        //To do ：　Feed流的显示顺序策略.
+
+        //如果关注列表为空，或者关注的人没有微博记录.
+
+//        if (userIDs == null || userIDs.isEmpty()){
+
+             list = weiboDao.selectByfavor(offset,limit);
+
+//            return addImageDomain(list);
+//        }
+
+//        List<Weibo> list = new LinkedList<>();
+
+        return addImageDomain(list);
+
+    }
+
+
+
     public List<Weibo> ListWeiboByUserId(int usrId,int offset,int count){
 
         List<Weibo> weibos =  weiboDao.showWeiboByUserId(usrId,offset,count);
 
         if( weibos.isEmpty()) return null;
 
-        for (Weibo weibo : weibos){
-            String images = weibo.getPicUrl();
-            weibo.setPicUrl(Tool.QINIUDOMIN + images);
-        }
-
-        return weibos;
+        return addImageDomain(weibos);
 
       /*  JSONArray jsonArray = new JSONArray();
 
@@ -156,13 +173,38 @@ public class WeiboService {
         return jsonArray.toJSONString();*/
     }
 
+    private List<Weibo> addImageDomain(List<Weibo> weibos){
+
+        for (Weibo weibo : weibos){
+
+            String image = weibo.getPicUrl();
+
+            if (image == null){
+                continue;
+            }
+
+            String[] images = StringUtils.split(image,"|");
+
+            StringBuilder res = new StringBuilder();
+
+            for (String str : images){
+                res.append(Tool.QINIUDOMIN + str + "|");
+            }
+
+            weibo.setPicUrl( res.toString());
+        }
+
+        return weibos;
+
+    }
+
     public List<Weibo> ListAllWeibo(int offset,int count){
 
         List<Weibo> weibos = weiboDao.showAllWeibo(offset,count);
 
         if(weibos.isEmpty()) return  null;
 
-        return weibos;
+        return addImageDomain(weibos);
 
        /* JSONArray jsonArray = new JSONArray();
 

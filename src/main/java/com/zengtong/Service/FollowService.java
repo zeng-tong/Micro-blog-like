@@ -1,10 +1,11 @@
 package com.zengtong.Service;
 
 
+import com.zengtong.Async.EventModel;
 import com.zengtong.Async.EventProducer;
+import com.zengtong.Async.EventType;
 import com.zengtong.Utils.JedisAdaptor;
 import com.zengtong.Utils.RedisKeyUtil;
-import com.zengtong.Utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,24 @@ public class FollowService {
     @Autowired
     private EventProducer eventProducer;
 
-    public String follow(int myId,int userId){
+    public long follow(int myId,int entityType ,int entityID){
 
 
-        if ( isFollower(myId,userId)) return null;
+        jedisAdaptor.followTransaction(myId,entityType,entityID);
 
-        jedisAdaptor.followTransaction(myId,userId);
+        eventProducer.fireEvent(new EventModel().setEventType(EventType.MESSAGE).setTo_id(entityID).setFrom_id(myId));
 
-        return Tool.getJSONString(0,"关注成功.");
+        return jedisAdaptor.zcard(RedisKeyUtil.getBizFollowlistKey(myId));
 
+    }
+
+    public long getFollowerCount(int entityType, int entityId) {
+        String followerKey = RedisKeyUtil.getBizFanslistKey(entityId);
+        return jedisAdaptor.zcard(followerKey);
+    }
+    public List<Integer> getFollowers(int entityType, int entityId, int offset, int count) {
+        String followerKey = RedisKeyUtil.getBizFanslistKey(entityId);
+        return getIntegerIds(jedisAdaptor.zrevrange(followerKey, offset, offset+count));
     }
 
     public long getFolloweeCount(int userId, int entityType) {

@@ -91,7 +91,8 @@
             oEl.attr('data-lock', 1);
             nc.util.ajax({
                 url: bLike ? '/dislike' : '/like',
-                data: {entityType: 2, entityId: sId},
+                // CommentType : 1
+                data: {entityType: 1, entityId: sId},
                 call: function (oResult) {
                     oDv.attr('data-liked', bLike ? 0 : 1);
                     oEl.html('<i class="ico-like"></i>' + (bLike ? '赞' : '已赞') + '(' + oResult.count + ')');

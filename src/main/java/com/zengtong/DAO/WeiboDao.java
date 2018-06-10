@@ -30,6 +30,9 @@ public interface WeiboDao {
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,"where id=#{id}"})
     Weibo selectWeiboById(Integer id);
 
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,"where user_id=#{id} order by id limit 0,1 "})
+    Weibo selectOneByUserID(Integer id);
+
     @Select({"select ",SELECT_FIELDS ," from ",TABLE_NAME , "where status=0 order by like_count desc limit #{offset},#{limit}"}) // TO DO : 筛选策略的选择.
     List<Weibo> selectByfavor(@Param("offset") int offset ,@Param("limit") int limit);
 

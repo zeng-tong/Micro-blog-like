@@ -77,7 +77,7 @@ $(function () {
             }
             that.isLockPublish = true;
             nc.util.ajax({
-                url: '/addWeibo',
+                url: '/weibo',
                 method: 'POST',
                 data: {content: sContent, images:aImage.join('|')},
                 call: function () {
@@ -162,7 +162,7 @@ $(function () {
         that.isLockLike = true;
         nc.util.ajax({
             url: bLike ? '/dislike' : '/like',
-            data: {entityType: 1, entityId: sId},
+            data: {entityType: 0, entityId: sId},
             call: function (oResult) {
                 oDv.attr('data-liked', bLike ? 0 : 1);
                 oEl[bLike ? 'removeClass' : 'addClass']('actived');

@@ -10,6 +10,7 @@ import com.zengtong.Service.UserSercvice;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
 import com.zengtong.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,16 +120,17 @@ public class LoginController {
 
 
     @RequestMapping(value = "/logout")
-    public String logout(@CookieValue("ticket")String ticket,
+    public String logout(@CookieValue(value = "ticket",defaultValue = "")String ticket,
                          HttpServletResponse response){
 
-        if(ticket != null){
+        if(ticket != null && !StringUtils.isBlank(ticket)){
             ticketDao.updateStatus(ticket,1);
         }
 
         hostHolder.clear();
 
         Tool.UpdateCookieTicket(response,null,0);
+
         return "redirect:/";
     }
 

@@ -1,13 +1,13 @@
 package com.zengtong.Utils;
 
-import java.util.HashSet;
-import java.util.Set;
+import redis.clients.jedis.Jedis;
 
 class Test{
 
 
     public static void main(String[] args) {
 
+/*
         Set<String> strings = new HashSet<>();
 
         strings.add("aaa");
@@ -19,6 +19,14 @@ class Test{
         for (String str : strings){
             System.out.println(str);
         }
+*/
+        Jedis jedis = new Jedis();
+
+        long a = jedis.zadd("test",1,"val");
+        long b = jedis.zadd("test",2,"val");
+
+        System.out.println(b);
+
 
     }
 
