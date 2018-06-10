@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -68,11 +69,12 @@ public class CommentController {
 
     @Autowired
     private CommentDao commentDao;
-    @RequestMapping(path = {"/listComments"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(path = {"/listComments"}, method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String listComments(@RequestParam("entityType") int entityType, @RequestParam("entityId") int entityId,
                                @RequestParam(value = "offset", defaultValue = "0") int offset,
-                               @RequestParam(value = "count", defaultValue = "10") int count) {
+                               @RequestParam(value = "count", defaultValue = "10") int count,
+                               HttpServletResponse response) {
         if (hostHolder.getUser() == null) {
             return Tool.GetJSONString(false, "未登陆");
         }
@@ -97,8 +99,8 @@ public class CommentController {
                 obj.put("liked", likeService.isLiked( EntityType.COMMENT.getValue(),comment.getId(), hostHolder.getUser().getId()));
                 commentArray.add(obj);
             }
+            response.setContentType("text/html,charset=utf-8");
             ret.put("comments", commentArray);
-
             return ret.toJSONString();
         } catch (Exception e) {
             return Tool.GetJSONString(false, "系统异常");

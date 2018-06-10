@@ -41,7 +41,6 @@ public class CommentService {
             return 0;
         }
         int addedCount = commentDao.addComment(comment);
-        System.out.println("addedCount: " + addedCount);
         if (addedCount == 0) {
             return addedCount;
         } else {

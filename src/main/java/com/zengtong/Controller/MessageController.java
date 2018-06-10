@@ -76,11 +76,12 @@ public class MessageController {
             if (hostHolder.getUser() == null) {
                 response.sendRedirect("redirect:/");
                 return null;
+            } else {
+                model.addAttribute("user",hostHolder.getUser());
             }
 
             List<Message> conversations = messageService.showListMessage(hostHolder.getUser().getId());
             model.addAttribute("messages", buildMessages(conversations, true));
-            model.addAttribute("user",hostHolder.getUser());
 
         } catch (Exception e) {
             logger.error(e.getMessage());
