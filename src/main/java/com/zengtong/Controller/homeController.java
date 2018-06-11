@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zengtong.Async.EventProducer;
 import com.zengtong.DAO.UserDao;
 import com.zengtong.Service.*;
-import com.zengtong.Utils.Tool;
 import com.zengtong.model.EntityType;
 import com.zengtong.model.HostHolder;
 import com.zengtong.model.User;
@@ -168,26 +167,6 @@ public class homeController {
             vos.add(obj);
         }
         return vos;
-    }
-
-
-    @RequestMapping(path = {"/weibo"}, method = {RequestMethod.POST})
-    @ResponseBody
-
-    public String addWeibo(@RequestParam("content") String content, @RequestParam(value = "images", defaultValue = "") String images) {
-        System.out.println("addWeibo: " + images);
-        try {
-            //Todo : change the upload images interface.
-            if (hostHolder.getUser() == null) {
-                return Tool.GetJSONString(false, "请先登陆.");
-            }
-
-            int wid = weiboService.UpWeibo(hostHolder.getUser().getId(), content, images);
-
-            return Tool.GetJSONString(wid > 0);
-        } catch (Exception e) {
-            return Tool.GetJSONString(false, "系统异常");
-        }
     }
 
     @Autowired

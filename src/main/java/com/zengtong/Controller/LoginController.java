@@ -45,7 +45,7 @@ public class LoginController {
     @RequestMapping(path = {"/regPage"}, method = {RequestMethod.GET})
     public String regPage() {
         if (hostHolder.getUser() != null) {
-            return "redirect:/index";
+            return "redirect:/";
         }
         return "register";
     }
