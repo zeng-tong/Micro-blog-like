@@ -167,7 +167,7 @@ public class MessageController {
 
             obj.put("mid", message.getId());
             obj.put("content", message.getContent());
-            obj.put("createdDate", message.getCreateDate());
+            obj.put("createdDate", message.getCreatedDate());
             obj.put("username", user.getName());
             obj.put("userid", user.getId());
             obj.put("userhead", user.getHeadUrl());

@@ -23,30 +23,32 @@ public class FollowService {
     @Autowired
     private EventProducer eventProducer;
 
-    public long follow(int myId,int entityType ,int entityID){
-
+    public long follow(int myId ,int entityID){
         if (isFollower(myId, entityID)){
-            return getFollowerCount(entityType, entityID);
+            return getFolloweeCount(entityID);
         }
-
-        jedisAdaptor.followTransaction(myId,entityType,entityID);
-
+        jedisAdaptor.followTransaction(myId,entityID);
         eventProducer.fireEvent(new EventModel().setEventType(EventType.MESSAGE).setTo_id(entityID).setFrom_id(myId));
-
         return jedisAdaptor.zcard(RedisKeyUtil.getBizFollowlistKey(myId));
-
     }
 
-    public long getFollowerCount(int entityType, int entityId) {
+    public long unFollow(int myId, int userId) {
+        if (!isFollower(myId, userId))
+            return getFollowerCount(userId);
+        jedisAdaptor.unfollowTransaction(myId, userId);
+        return getFolloweeCount(userId);
+    }
+
+    public long getFollowerCount(int entityId) {
         String followerKey = RedisKeyUtil.getBizFanslistKey(entityId);
         return jedisAdaptor.zcard(followerKey);
     }
-    public List<Integer> getFollowers(int entityType, int entityId, int offset, int count) {
+    public List<Integer> getFollowers(int entityId, int offset, int count) {
         String followerKey = RedisKeyUtil.getBizFanslistKey(entityId);
         return getIntegerIds(jedisAdaptor.zrevrange(followerKey, offset, offset+count));
     }
 
-    public long getFolloweeCount(int userId, int entityType) {
+    public long getFolloweeCount(int userId) {
         String followeeKey = RedisKeyUtil.getBizFollowlistKey(userId);
         return jedisAdaptor.zcard(followeeKey);
     }
@@ -59,12 +61,8 @@ public class FollowService {
     }
 
     public boolean isFollower(int myID,int userID){
-
         String key = RedisKeyUtil.getBizFollowlistKey(myID);
-
-        if (jedisAdaptor.zismember(key,String.valueOf(userID))) return true;
-
-        return false;
+        return jedisAdaptor.zismember(key, String.valueOf(userID));
     }
 
     private List<Integer> getIntegerIds(Set<String> ss) {

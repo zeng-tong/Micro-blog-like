@@ -20,7 +20,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 "/like","/dislike","/follow","/feedWeibo","/index",
                 "/listComments","/addComment","/followee/{uid}",
                 "/addWeibo","/profile/{uid}","/follower/{uid}",
-                "/conversation","/messagebox");
+                "/conversation","/messagebox", "/unfollow");
     }
 
 

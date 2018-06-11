@@ -44,7 +44,7 @@ public class WeiboService {
         weibo.setCommentCount(0);
         weibo.setLikeCount(0);
         weibo.setUserId(user_id);
-        weibo.setCreateDate(new Date());
+        weibo.setCreatedDate(new Date());
         weibo.setPicUrl(images);
         weibo.setContent(content);
 
@@ -75,7 +75,7 @@ public class WeiboService {
 
                 json.put("Name: ",userDao.selectById(Integer.valueOf(weibo.getUserId())).getName());
 
-                json.put("CreateDate: ",weibo.getCreateDate());
+                json.put("CreateDate: ",weibo.getCreatedDate());
 
                 json.put("content: ",weibo.getContent());
 
@@ -101,7 +101,7 @@ public class WeiboService {
 
             json.put("Name: ",userDao.selectById(Integer.valueOf(userID)).getName());
 
-            json.put("CreateDate: ",weibo.getCreateDate());
+            json.put("CreateDate: ",weibo.getCreatedDate());
 
             json.put("content: ",weibo.getContent());
 
@@ -165,7 +165,7 @@ public class WeiboService {
             json.put("username",user.getName());
             json.put("CommentCount",weibo.getCommentCount());
             json.put("LikeCount",weibo.getLikeCount());
-            json.put("CreateDate",weibo.getCreateDate());
+            json.put("CreateDate",weibo.getCreatedDate());
             json.put("Content",weibo.getContent());
             json.put("pic_url",splitPicName(weibo.getPicUrl()));
             jsonArray.add(json);
@@ -214,7 +214,7 @@ public class WeiboService {
             json.put("username",user.getName());
             json.put("CommentCount",weibo.getCommentCount());
             json.put("LikeCount",weibo.getLikeCount());
-            json.put("CreateDate",weibo.getCreateDate());
+            json.put("CreateDate",weibo.getCreatedDate());
             json.put("Content",weibo.getContent());
             json.put("pic_url",splitPicName(weibo.getPicUrl()));
             jsonArray.add(json);

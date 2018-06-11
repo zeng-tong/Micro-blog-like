@@ -15,7 +15,7 @@
 
         <div class="header" th:fragment="navigator">
             <div class="header-main">
-                <a href="/index" class="header-logo">晓梦初醒</a>
+                <a href="/" class="header-logo">晓梦初醒</a>
                 <div role="search" class="header-search">
                     <form method="GET" action="/search" class="header-search-form">
                         <input type="text" class="header-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索你感兴趣的内容...">
@@ -25,7 +25,7 @@
                         </button>
                     </form>
                 </div>
-                <a href="/index" class="header-link">首页</a>
+                <a href="/" class="header-link">首页</a>
                 <a th:if="${user != null}" th:href="'/profile/'+${user.id}" class="header-link">我的微博</a>
                 <a th:if="${user != null}" th:href="'/followee/'+${user.id}" class="header-link">我的关注</a>
                 <a th:if="${user != null}" th:href="'/follower/'+${user.id}" class="header-link">我的粉丝</a>

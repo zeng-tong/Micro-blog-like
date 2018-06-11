@@ -31,7 +31,7 @@ public class MessageService {
         message.setHasRead(0); // 0表示未阅读
         message.setFromDelete(0); // 0未删除
         message.setToDelete(0);
-        message.setCreateDate(new Date());
+        message.setCreatedDate(new Date());
         messageDao.addMessage(message);
 
         map.put("success","发送成功");
@@ -51,7 +51,7 @@ public class MessageService {
         for (Message message : messages){
             JSONObject json = new JSONObject();
             json.put("content",message.getContent());
-            json.put("CreateDate",message.getCreateDate());
+            json.put("CreateDate",message.getCreatedDate());
             json.put("From : ",message.getFromId());
             json.put("To : ",message.getToId());
             jsons.add(json);
@@ -75,7 +75,7 @@ public class MessageService {
             JSONObject json = new JSONObject();
 
             json.put("nums",message.getId());
-            json.put("createDate",message.getCreateDate());
+            json.put("createDate",message.getCreatedDate());
             json.put("content",message.getContent());
             json.put("To",message.getToId());
             json.put("From",message.getFromId());

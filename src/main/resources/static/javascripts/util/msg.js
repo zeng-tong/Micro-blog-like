@@ -49,7 +49,7 @@
                                 '<div class="remark-wrap">',
                                     '<div class="editor-field-wrap">',
                                         '<div class="editor-field-element js-content" contenteditable="true">',
-                                            // '<p><span class="remark-tips">私信内容</span></p>',
+                                            '<p><span class="remark-tips">私信内容</span></p>',
                                         '</div>',
                                     '</div>',
                                 '</div>',

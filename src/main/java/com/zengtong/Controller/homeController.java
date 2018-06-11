@@ -10,14 +10,12 @@ import com.zengtong.model.EntityType;
 import com.zengtong.model.HostHolder;
 import com.zengtong.model.User;
 import com.zengtong.model.Weibo;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -54,32 +52,6 @@ public class homeController {
     @Autowired
     EventProducer eventProducer;
 
-    /**
-     * thymleaf
-     */
-    @RequestMapping(value = "/")
-    public String home(HttpSession session) {
-    /*    model.addAttribute("name","ZengTong");
-        model.addAttribute("user",new User("小哥",10,"pswd"));*/
-
-
-        String name = "NULL";
-
-        if (hostHolder.getUser() != null) {
-            name = hostHolder.getUser().getName();
-        }
-
-        session.setAttribute("name", name);
-
-
-        System.out.println("This is controller");
-
-
-        return "home";
-
-    }
-
-
     @RequestMapping(value = "/redirect/{code}")
     public String redirect(@PathVariable("code") int code,
                            HttpSession httpSession) {
@@ -103,26 +75,19 @@ public class homeController {
     }
 
 
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/")
     public String index(Model model) {
-
         int userID = 1;
-
         if (hostHolder.getUser() != null) {
             userID = hostHolder.getUser().getId();
         }
-
         try {
-
 //            model.addAttribute("weibos",getWeibos(userID,0,10));
-
-            model.addAttribute("weibos", getWeibos(weiboService.getFeed(userID, 0, 10)));
-
             model.addAttribute("user", hostHolder.getUser());
+            model.addAttribute("weibos", getWeibos(weiboService.getFeed(userID, 0, 10)));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "index";
     }
 
@@ -152,7 +117,7 @@ public class homeController {
                 return "redirect:/index";
             }
             model.addAttribute("hostname", user.getName());
-            model.addAttribute("followeeCount", followService.getFolloweeCount(uid, EntityType.USER.getValue())); //EntityType zan shi mei you shiyong.
+            model.addAttribute("followeeCount", followService.getFolloweeCount(uid)); //EntityType zan shi mei you shiyong.
             model.addAttribute("user", hostHolder.getUser());
             List<Integer> followeeIds = followService.getFollowees(uid, offset, count);
             model.addAttribute("vos", getFollowUsers(followeeIds));
@@ -173,9 +138,9 @@ public class homeController {
                 return "redirect:/";
             }
             model.addAttribute("hostname", u.getName());
-            model.addAttribute("followerCount", followService.getFollowerCount(EntityType.USER.getValue(), uid));
+            model.addAttribute("followerCount", followService.getFollowerCount(uid));
             model.addAttribute("user", hostHolder.getUser());
-            List<Integer> followerIds = followService.getFollowers(EntityType.USER.getValue(), uid, offset, count);
+            List<Integer> followerIds = followService.getFollowers(uid, offset, count);
             model.addAttribute("vos", getFollowUsers(followerIds));
 
         } catch (Exception e) {
@@ -210,7 +175,7 @@ public class homeController {
     @ResponseBody
 
     public String addWeibo(@RequestParam("content") String content, @RequestParam(value = "images", defaultValue = "") String images) {
-        System.out.println("addWeibo: "+ images);
+        System.out.println("addWeibo: " + images);
         try {
             //Todo : change the upload images interface.
             if (hostHolder.getUser() == null) {
@@ -223,27 +188,6 @@ public class homeController {
         } catch (Exception e) {
             return Tool.GetJSONString(false, "系统异常");
         }
-    }
-
-
-    @Autowired
-    private ImageService imageService;
-
-    @RequestMapping(path = {"/uploadImage"}, method = {RequestMethod.POST})
-    @ResponseBody
-    public String uploadImage(MultipartFile file, @RequestParam(value = "type", defaultValue = "cloud") String type) {
-        try {
-            String url = StringUtils.equalsIgnoreCase(type, "local") ? imageService.saveImageLocal(file) : imageService.upToCloud(file);
-            System.out.println(url);
-            if (url != null) {
-                JSONObject ret = Tool.GetJSON(true);
-                ret.put("url", url);
-                return ret.toJSONString();
-            }
-        } catch (Exception e) {
-            return Tool.getJSONString(false);
-        }
-        return Tool.GetJSONString(false);
     }
 
     @Autowired
@@ -274,6 +218,5 @@ public class homeController {
         List<Weibo> weibos = weiboService.ListWeiboByUserId(userId, offset, count);
         return getWeibos(weibos);
     }
-
 
 }

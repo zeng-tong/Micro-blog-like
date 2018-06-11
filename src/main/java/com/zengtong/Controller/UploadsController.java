@@ -1,7 +1,9 @@
 package com.zengtong.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zengtong.Service.ImageService;
 import com.zengtong.Utils.Tool;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +19,25 @@ import java.util.Map;
 
 @Controller
 public class UploadsController {
-
-
-
     @Autowired
     private ImageService imageService;
+
+    @RequestMapping(path = {"/uploadImage"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String uploadImage(MultipartFile file, @RequestParam(value = "type", defaultValue = "cloud") String type) {
+        try {
+            String url = StringUtils.equalsIgnoreCase(type, "local") ? imageService.saveImageLocal(file) : imageService.upToCloud(file);
+            System.out.println(url);
+            if (url != null) {
+                JSONObject ret = Tool.GetJSON(true);
+                ret.put("url", url);
+                return ret.toJSONString();
+            }
+        } catch (Exception e) {
+            return Tool.getJSONString(false);
+        }
+        return Tool.GetJSONString(false);
+    }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -71,7 +87,7 @@ public class UploadsController {
     @RequestMapping(value = "/image",method = RequestMethod.GET)
     @ResponseBody
     public String getImage(@RequestParam("name")String name,
-                           HttpServletResponse response) throws IOException {
+                           HttpServletResponse response) {
         Map<String ,Object> map = new HashMap<>();
 
         try {
