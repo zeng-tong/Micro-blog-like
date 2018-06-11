@@ -53,7 +53,7 @@
             bLock = true;
             nc.util.ajax({
                 url: '/addComment',
-                data: {content: sContent, entityType: 1, entityId: that.id},
+                data: {content: sContent, entityType: 0, entityId: that.id}, // weibo_comment 0, comment_comment 1
                 call: function () {
                     oElMap.textarea.val('');
                     that.count++;
@@ -91,7 +91,8 @@
             oEl.attr('data-lock', 1);
             nc.util.ajax({
                 url: bLike ? '/dislike' : '/like',
-                data: {entityType: 2, entityId: sId},
+                // CommentType : 1
+                data: {entityType: 1, entityId: sId},
                 call: function (oResult) {
                     oDv.attr('data-liked', bLike ? 0 : 1);
                     oEl.html('<i class="ico-like"></i>' + (bLike ? '赞' : '已赞') + '(' + oResult.count + ')');
@@ -143,7 +144,7 @@
         var nOffset = oConf.offset || 0;
         nc.util.ajax({
             url: '/listComments',
-            data: {entityType: 1, entityId: that.id, offset: nOffset, count: nCount},
+            data: {entityType: 0, entityId: that.id, offset: nOffset, count: nCount}, //
             call: function (oResult) {
                 var aItem = oResult.comments || [];
                 var bHasNext = aItem.length >= nCount;

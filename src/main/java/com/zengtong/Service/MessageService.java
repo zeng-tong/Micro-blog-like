@@ -1,7 +1,5 @@
 package com.zengtong.Service;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.zengtong.DAO.MessageDao;
 import com.zengtong.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class MessageService {
         message.setHasRead(0); // 0表示未阅读
         message.setFromDelete(0); // 0未删除
         message.setToDelete(0);
-        message.setCreateDate(new Date());
+        message.setCreatedDate(new Date());
         messageDao.addMessage(message);
 
         map.put("success","发送成功");
@@ -42,31 +40,33 @@ public class MessageService {
     }
 
 
-    public JSONArray showDetailMessage(String conversationID){
+    public List<Message> showDetailMessage(String conversationID){
 
 
-        List<Message> messages = messageDao.showDetailMessage(conversationID);
+//        List<Message> messages =
+                return messageDao.showDetailMessage(conversationID);
 
-        JSONArray jsons = new JSONArray();
+/*        JSONArray jsons = new JSONArray();
 
         for (Message message : messages){
             JSONObject json = new JSONObject();
             json.put("content",message.getContent());
-            json.put("CreateDate",message.getCreateDate());
+            json.put("CreateDate",message.getCreatedDate());
             json.put("From : ",message.getFromId());
             json.put("To : ",message.getToId());
             jsons.add(json);
         }
 
-        return jsons;
+        return jsons;*/
 
     }
 
-    public JSONArray showListMessage(int myId){
+    public List<Message> showListMessage(int myId){
 
-        List<Message> messages = messageDao.showListMessage(myId);
+//        List<Message> messages =
+         return        messageDao.showListMessage(myId);
 
-        JSONArray jsons = new JSONArray();
+        /*JSONArray jsons = new JSONArray();
 
         if(messages.isEmpty()) return jsons;
 
@@ -75,7 +75,7 @@ public class MessageService {
             JSONObject json = new JSONObject();
 
             json.put("nums",message.getId());
-            json.put("createDate",message.getCreateDate());
+            json.put("createDate",message.getCreatedDate());
             json.put("content",message.getContent());
             json.put("To",message.getToId());
             json.put("From",message.getFromId());
@@ -83,7 +83,7 @@ public class MessageService {
             jsons.add(json);
         }
 
-        return jsons;
+        return jsons;*/
     }
 
 }

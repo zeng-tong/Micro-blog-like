@@ -12,9 +12,9 @@ public interface TicketDao {
 
     String TABLE_NAME = " Ticket ";
 
-    String SELECT_FIEILD = " id , userid , ticket , status, expired ";
+    String SELECT_FIEILD = " id , user_id , ticket , status, expired ";
 
-    String INSERT_FIEILD = " userid , ticket, status , expired ";
+    String INSERT_FIEILD = " user_id , ticket, status , expired ";
 
     @Insert({"insert into ",TABLE_NAME," ( ", INSERT_FIEILD ,") values (#{userid},#{ticket},#{status},#{expired})"})
     int addTicket(Ticket ticket);

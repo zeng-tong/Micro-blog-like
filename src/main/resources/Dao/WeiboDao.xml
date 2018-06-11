@@ -6,13 +6,13 @@
 <!--    <sql id="table_name">weibo</sql>
     <sql id="insert_fields">  user_id , status , comment_count, pic_url, create_date, content, like_count </sql>-->
     <insert id="insertWeibo" useGeneratedKeys="true" keyProperty="id" parameterType="com.zengtong.model.Weibo">
-        INSERT INTO weibo(user_id , status , comment_count, pic_url, create_date, content, like_count)VALUES (#{userId},#{status},#{commentCount},#{picUrl},#{createDate}, #{content}, #{likeCount})
+        INSERT INTO weibo(user_id , status , comment_count, pic_url, created_date, content, like_count)VALUES (#{userId},#{status},#{commentCount},#{picUrl},#{createdDate}, #{content}, #{likeCount})
     </insert>
 </mapper>
 <!--
 
 
-@Insert({"insert into ",TABLE_NAME,"(", INSERT_FIELDS,") values(#{userId},#{status},#{commentCount},#{picUrl},#{createDate}, #{content}, #{likeCount})"})
+@Insert({"insert into ",TABLE_NAME,"(", INSERT_FIELDS,") values(#{userId},#{status},#{commentCount},#{picUrl},#{createdDate}, #{content}, #{likeCount})"})
 int insertWeibo(Weibo weibo);
 
 -->

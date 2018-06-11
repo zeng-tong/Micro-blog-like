@@ -14,11 +14,11 @@ public interface WeiboDao {
 
     String TABLE_NAME = "weibo"; // 重复次数
 
-    String INSERT_FIELDS = " user_id , status , comment_count, pic_url, create_date, content, like_count";
+    String INSERT_FIELDS = " user_id , status , comment_count, pic_url, created_date, content, like_count";
 
     String SELECT_FIELDS = "id ," + INSERT_FIELDS;
 
-    @Insert({"insert into ",TABLE_NAME,"(", INSERT_FIELDS,") values(#{userId},#{status},#{commentCount},#{picUrl},#{createDate}, #{content}, #{likeCount})"})
+    @Insert({"insert into ",TABLE_NAME,"(", INSERT_FIELDS,") values(#{userId},#{status},#{commentCount},#{picUrl},#{createdDate}, #{content}, #{likeCount})"})
     Long insertWeibo(Weibo weibo);
 
     @Select({"select ",SELECT_FIELDS, "from ",TABLE_NAME, "where user_id=#{userId} and status = 0 limit #{offset},#{count}"})
@@ -30,7 +30,10 @@ public interface WeiboDao {
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,"where id=#{id}"})
     Weibo selectWeiboById(Integer id);
 
-    @Select({"select ",SELECT_FIELDS ," from ",TABLE_NAME , "where status=0 order by like_count desc limit #{offset},#{limit}"}) // TO DO : 筛选策略的选择.
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,"where user_id=#{id} order by id limit 0,1 "})
+    Weibo selectOneByUserID(Integer id);
+
+    @Select({"select ",SELECT_FIELDS ," from ",TABLE_NAME , "where status=0 order by like_count desc limit #{offset},#{limit}"}) // TODO : 筛选策略的选择.
     List<Weibo> selectByfavor(@Param("offset") int offset ,@Param("limit") int limit);
 
     @Update({"update ", TABLE_NAME ,"set status=1 where id=#{id}"})

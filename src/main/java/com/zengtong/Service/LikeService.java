@@ -19,61 +19,39 @@ public class LikeService {
 
     @Autowired
     private JedisAdaptor jedisAdaptor;
-    public long like(int entityId,int entityType,int userId){
+    public Double like(int entityId,int entityType,int userId){
 
-        String key = RedisKeyUtil.getLikeKey(entityId,entityType);
-
-        //点过赞,status不为空,则取消点赞
-        if ( isLiked(entityId,entityType,userId) ){
-
-            jedisAdaptor.del(RedisKeyUtil.checkLike(entityId,entityType,userId));//恢复未点赞状态
-
-            switch (entityType){
-                case 0 : weiboDao.minusLikeCount(entityId);
-                case 1 : commentDao.minusLikeCount(entityId);
-            }
-
-            return jedisAdaptor.decr(key);
-        }
-
+        String key = RedisKeyUtil.getLikeKey(entityType,entityId);
+        //              type ID        userID     likeCount
+        // Key  :   LIKE:0:10    value:           score
         //点赞数量
-        String val = jedisAdaptor.get(key);
-
-        if(val == null) {
-
-            jedisAdaptor.set(key,String.valueOf(1));
-            //点过赞则添加一条数据,避免重复点赞
-            jedisAdaptor.set(RedisKeyUtil.checkLike(entityId,entityType,userId),"liked");
-
-            switch (entityType){
-                case 0 : weiboDao.addLikeCount(entityId);
-                case 1 : commentDao.addLikeCount(entityId);
-            }
-
-            return 1;
-
-        }
-
-
-        jedisAdaptor.set(RedisKeyUtil.checkLike(entityId,entityType,userId),"liked");
-
+        //如果没有数据记录,则添加一条,初始化喜欢数为１
+//            //点过赞则添加一条数据用于检测是否点赞,避免重复点赞
+//            jedisAdaptor.zadd(RedisKeyUtil.checkLike(entityType,entityId),new Date().getTime(),String.valueOf(userId));
         switch (entityType){
             case 0 : weiboDao.addLikeCount(entityId);break;
             case 1 : commentDao.addLikeCount(entityId); break;
         }
-
-        return jedisAdaptor.incr(key);
-
-
+        return jedisAdaptor.Like(key,String .valueOf(userId));
     }
 
-    public boolean isLiked(int entityId,int entityType,int userId){
+    public Double dislike(int userId,int entityType,int entityId){
 
-        String status = jedisAdaptor.get(RedisKeyUtil.checkLike(entityId,entityType,userId));
+        String key = RedisKeyUtil.getLikeKey(entityType,entityId);
 
-        if (status != null ) return true;
+        switch (entityType){
+            case 0 : weiboDao.minusLikeCount(entityId);
+            case 1 : commentDao.minusLikeCount(entityId);
+        }
 
-        return false;
+        return jedisAdaptor.cancelLike(key,String .valueOf(userId));
+    }
+
+    public boolean isLiked(int entityType,int entityId,int userId){
+        //              type         userID     likeCount
+        // Key  :   LIKE:0    value:           score
+
+        return jedisAdaptor.zismember(RedisKeyUtil.getLikeKey(entityType,entityId),String .valueOf(userId));
 
     }
 

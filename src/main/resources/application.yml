@@ -1,5 +1,7 @@
 server:
-  port: 8888
+  port: 12345
+  tomcat:
+    uri-encoding: UTF-8
 
 spring:
   thymeleaf:
@@ -11,13 +13,17 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/SummerCamp?useUnicode=true&characterEncoding=UTF8&useSSL=false
     username: root
-    password: 111111
+    password: jwerrrer71a
   messages:
     basename: templates/home
   http:
     multipart:
       max-file-size: 100MB
       max-request-size: 1000MB
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
   mail:
     host: smtp.163.com
     username: unixsudo@163.com
@@ -25,7 +31,6 @@ spring:
     protocol: smtp
     default-encoding: utf-8
 #    port: 587
-
 
 mybatis:
   config-location: classpath:mybatis-config.xml

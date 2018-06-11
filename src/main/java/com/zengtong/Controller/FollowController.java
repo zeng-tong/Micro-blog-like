@@ -1,9 +1,7 @@
 package com.zengtong.Controller;
 
-import com.zengtong.Async.EventModel;
-import com.zengtong.Async.EventProducer;
-import com.zengtong.Async.EventType;
 import com.zengtong.Service.FollowService;
+import com.zengtong.Utils.JedisAdaptor;
 import com.zengtong.Utils.Tool;
 import com.zengtong.model.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +21,31 @@ public class FollowController {
     @Autowired
     private FollowService followService;
 
+
     @Autowired
-    private EventProducer eventProducer;
+    private JedisAdaptor jedisAdaptor;
 
-    @RequestMapping(value = "/follow",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = "/follow", method = {RequestMethod.POST, RequestMethod.GET},  produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String follow(@RequestParam("userId")int userId){
-
+    public String follow(@RequestParam("userId") int userId) {
         if (hostHolder.getUser() == null) {
-            return Tool.getJSONString(999,"用户未登陆");
+            return Tool.getJSONString(999, "用户未登陆");
         }
 
         int myId = hostHolder.getUser().getId();
+        followService.follow(myId, userId);
+        return Tool.getJSONString(0, "关注成功");
 
-        if (followService.follow(myId,userId) == null){
-            return Tool.getJSONString(1,"不要重复关注");
+    }
+
+    @RequestMapping(value = "/unfollow", method = {RequestMethod.POST, RequestMethod.GET},  produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String unfollow(@RequestParam("userId") int userId) {
+        if (hostHolder.getUser() == null) {
+            return Tool.getJSONString(999, "用户未登陆");
         }
-
-        eventProducer.fireEvent(new EventModel().setEventType(EventType.MESSAGE).setTo_id(userId).setFrom_id(myId));
-
-        return Tool.getJSONString(0,"关注成功");
-
+        int myId = hostHolder.getUser().getId();
+        followService.unFollow(myId, userId);
+        return Tool.getJSONString(0, "取消关注");
     }
 }

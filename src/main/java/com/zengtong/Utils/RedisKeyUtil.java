@@ -15,12 +15,12 @@ public class RedisKeyUtil {
         return BIZ_EVENT;
     }
 
-    public static String getLikeKey(int entityId, int entityType) {
-        return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
+    public static String getLikeKey(int entityType,int entityID) {
+        return BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String .valueOf(entityID);
     }
 
-    public static String checkLike(int entityId, int entityType,int userId) {
-        return "CHECK"+BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId) + SPLIT + String.valueOf(userId);
+    public static String checkLike( int entityType,int entityId) {
+        return "CHECK"+BIZ_LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 
     public static String getBizFollowlistKey(int myid){

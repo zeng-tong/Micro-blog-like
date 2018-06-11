@@ -16,18 +16,18 @@ public class Weibo {
 
     private String picUrl;
 
-    private Date createDate;
+    private Date createdDate;
 
     private int likeCount;
 
     private String content;
 
-    public Weibo(int userId, int commentCount, int status, String picUrl, Date createDate, int likeCount, String content) {
+    public Weibo(int userId, int commentCount, int status, String picUrl, Date createdDate, int likeCount, String content) {
         this.userId = userId;
         this.commentCount = commentCount;
         this.status = status;
         this.picUrl = picUrl;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
         this.likeCount = likeCount;
         this.content = content;
     }
@@ -76,12 +76,12 @@ public class Weibo {
         this.picUrl =  picUrl;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public int getLikeCount() {
@@ -106,4 +106,5 @@ public class Weibo {
         }
         return picUrl.split("\\|");
     }
+
 }

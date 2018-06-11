@@ -21,7 +21,7 @@ public class Message {
 
     private int toDelete;
 
-    private Date createDate;
+    private Date createdDate;
 
     public Message() {
     }
@@ -90,12 +90,12 @@ public class Message {
         this.toDelete = toDelete;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 

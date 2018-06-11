@@ -6,11 +6,11 @@ package com.zengtong.model;
 
 
 public class User {
-    public User(String name, String password, String salt, String head_url,String email) {
+    public User(String name, String password, String salt, String headUrl, String email) {
         this.name = name;
         this.password = password;
         this.salt = salt;
-        this.head_url = head_url;
+        this.headUrl = headUrl;
         this.email = email;
     }
 
@@ -26,7 +26,7 @@ public class User {
 
     private String salt;
 
-    private String head_url;
+    private String headUrl;
 
     public String getName() {
         return name;
@@ -52,12 +52,12 @@ public class User {
         this.salt = salt;
     }
 
-    public String getHead_url() {
-        return head_url;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setHead_url(String head_url) {
-        this.head_url = head_url;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 
     public int getId() {
