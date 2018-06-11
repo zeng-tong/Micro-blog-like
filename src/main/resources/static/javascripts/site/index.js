@@ -59,6 +59,7 @@ $(function () {
             var that = this;
             var sHtml = '';
             $.each(aImage, function (_, sUrl) {
+                sUrl = 'http://otkji1m02.bkt.clouddn.com/' + sUrl;
                 sHtml += [
                     '<a href="' + sUrl+ '" target="_blank">',
                         '<img src="' + sUrl + '" />',
